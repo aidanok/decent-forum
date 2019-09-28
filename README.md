@@ -1,4 +1,4 @@
-# phunk-forum-vue
+# Decent Forum Vue UI.
 
 ## Project setup
 ```

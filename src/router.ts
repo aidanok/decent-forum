@@ -1,8 +1,17 @@
 import Vue from 'vue';
-import Router from 'vue-router';
+import Router, { Route } from 'vue-router';
 import Home from './views/Home.vue';
+import Post from './views/Post.vue';
+import ViewForum from './views/ViewForum.vue';
+import Thread from './views/Thread.vue';
+
+import { decodeForumPath } from 'decent-forum-api/lib/forum-paths';
 
 Vue.use(Router);
+
+function isString(x: any): x is string {
+  return x && typeof x === 'string'
+}
 
 export default new Router({
   routes: [
@@ -19,5 +28,34 @@ export default new Router({
       // which is lazy-loaded when the route is visited.
       component: () => import(/* webpackChunkName: "about" */ './views/About.vue'),
     },
+    {
+      path: '/post',
+      name: 'post',
+      component: Post,
+      props: (route) => {
+        return {
+          path: isString(route.query.forum) ? decodeForumPath(route.query.forum) : [], 
+        }
+      },
+    }, 
+    {
+      path: '/forum',
+      name: 'fourm',
+      component: ViewForum,
+      props: (route) => {
+        return {
+          path: isString(route.query.forum) ? decodeForumPath(route.query.forum) : [],
+        }
+      }
+    },
+    {
+      path: '/thread',
+      name: 'thread',
+      component: Thread,
+      props: (route) => ({
+        txId: isString(route.query.txId) ? route.query.txId : ''
+      })
+    }
+
   ],
 });

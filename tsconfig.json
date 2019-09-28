@@ -14,9 +14,9 @@
       "webpack-env"
     ],
     "paths": {
-      "@/*": [
-        "src/*"
-      ]
+      "@/*": ["src/*"],
+      "decent-forum-api": ["../decent-forum-api/src"],
+      "decent-forum-api/*": ["../decent-forum-api/src/*"]
     },
     "lib": [
       "esnext",
@@ -30,7 +30,8 @@
     "src/**/*.tsx",
     "src/**/*.vue",
     "tests/**/*.ts",
-    "tests/**/*.tsx"
+    "tests/**/*.tsx",
+    "../decent-forum-api/**/*.ts"
   ],
   "exclude": [
     "node_modules"
