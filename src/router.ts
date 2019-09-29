@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Router, { Route } from 'vue-router';
 import Home from './views/Home.vue';
-import Post from './views/Post.vue';
+import PostEditor from './views/PostEditor.vue';
 import ViewForum from './views/ViewForum.vue';
 import Thread from './views/Thread.vue';
 
@@ -29,9 +29,9 @@ export default new Router({
       component: () => import(/* webpackChunkName: "about" */ './views/About.vue'),
     },
     {
-      path: '/post',
-      name: 'post',
-      component: Post,
+      path: '/post-edit',
+      name: 'post-edit',
+      component: PostEditor,
       props: (route) => {
         return {
           path: isString(route.query.forum) ? decodeForumPath(route.query.forum) : [], 

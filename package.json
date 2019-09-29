@@ -12,10 +12,12 @@
     "arweave": "1.4.1",
     "core-js": "^2.6.5",
     "graphql-request": "1.8.2",
+    "moment": "2.24.0",
     "register-service-worker": "^1.6.2",
     "remixicon": "2.0.0",
     "vue": "^2.6.10",
     "vue-burger-menu": "2.0.2",
+    "vue-moment": "4.0.0",
     "vue-router": "^3.0.3"
   },
   "devDependencies": {
@@ -36,8 +38,7 @@
     "> 1%",
     "last 2 versions"
   ],
-  "gitHooks": {
-  },
+  "gitHooks": {},
   "lint-staged": {
     "*.ts": [
       "vue-cli-service lint",

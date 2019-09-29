@@ -1,0 +1,148 @@
+/**
+ * CSS that iss not categorized yet. Should be empty at some point .
+ */
+
+
+/** These should match LoginPanel styles */
+.app-header a {
+  text-decoration: none; 
+  display: flex;
+  align-items: center;
+  padding: 0.4em 0.9em;
+  color: #2c3e50;
+}
+
+.app-header a > * {
+  margin-left: 0.2em;
+}
+
+.app-header a:hover {
+  border-radius: 0.5em;
+  background: rgba(0,0,0,0.046);
+  cursor: pointer;
+  transition: background 0.19s;
+}
+
+.header-coloring {
+  background: rgb(224, 231, 239);
+  background: linear-gradient(to right, rgba(245, 251, 255, 0.25) 0%, rgba(238, 238, 238, 0.25)100%);
+  box-shadow: 
+    inset 0 1px 3px -1px rgba(0,0,0,0.24);
+  border-bottom: 1px solid rgba(0,0,0,0.15);
+}
+
+
+/** Font defaults, directly from Vue cli init */
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+}
+
+
+.post-editor {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 3em; 
+}
+.post-editor > * {
+  max-width: 40em;
+}
+
+/** BURGER MENU */
+
+/** nothing really to do with burger menu */
+#page-wrap {
+  padding: 0rem 0rem;
+  overflow: visible;
+}
+
+.bm-menu a.router-link-exact-active {
+  color: #42b983;
+}
+
+  
+.bm-burger-button {
+  position: absolute;
+  width: 27px;
+  height: 22px;
+  left: 1rem;
+  top: 1rem;
+}
+
+.right .bm-burger-button {
+  left: initial;
+  right: 36px;
+}
+.bm-burger-bars {
+  background: #373a47;
+}
+.bm-morph-shape {
+  fill: #373a47;
+}
+.bm-menu {
+  background: #373a47;
+  transition: 0.15s;
+}
+.bm-menu-item-list a  { 
+  color: #ebda29;
+}
+
+.bm-menu span:hover  { 
+  color: #ece37e;
+}
+
+/* FROM BULMA  -- broken */
+.is-loading {
+  position: relative;
+}
+.is-loading::after {
+  -webkit-animation: spinAround 500ms infinite linear;
+          animation: spinAround 500ms infinite linear;
+  border: 2px solid #dbdbdb;
+  border-radius: 290486px;
+  border-right-color: transparent;
+  border-top-color: transparent;
+  content: "";
+  height: 1em;
+  width: 80%;
+  position: absolute;
+  border: 1px solid green;  
+}
+
+
+
+/** LOGIN-PANEL */
+
+.user-login-panel {
+  display: flex;
+  font-size: 1em;
+  align-items: center;
+  padding: 0.4em;
+}
+
+.user-login-panel:hover {
+  border-radius: 0.5em 0.0em 0.0em 0.5em;
+  background: rgba(0,0,0,0.046);
+  cursor: pointer;
+  transition: background 0.19s;
+}
+
+.user-login-panel > * {
+  margin-left: 0.2em;
+}
+
+/** ACCESSIBLE? FILE INPUT */
+[type="file"] {
+  border: 0;
+  clip: rect(0, 0, 0, 0);
+  height: 1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute !important;
+  white-space: nowrap;
+  width: 1px;
+}

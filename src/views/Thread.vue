@@ -1,34 +1,14 @@
 <template>
   <div>
     A thread...
-    <div v-if="rootNode" class="thread-post root-post">
-      <h4> {{ rootNode.post.tags.description }} </h4>
-      <p> {{ rootNode.post.content }} </p>
-    </div>
+    <thread-post v-if="rootNode" :postNode=rootNode>
+    </thread-post>
+
     <div v-else>
       Problem
     </div>
   </div>
 </template>
-
-<style>
-  .thread-post {
-    border: 2px dashed rgba(24,255,24,0.4);
-    margin-left: 3em;
-    margin-right: 3em;
-    text-align: left;
-    padding: 0em 1em;
-    border-radius: 0.3em;
-  }
-  .thread-post.root-post h4 {
-    padding: 1em;
-    margin-top: 0em;
-    border-bottom: 2px dashed rgba(115, 150, 112, 0.7);
-  }
-  .thread-post p {
-    padding: 0.2em 1em;
-  }
-</style>
 
 <script lang="ts">
 

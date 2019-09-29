@@ -1,0 +1,63 @@
+
+/**
+ *  CSS For threads and posts.
+ * 
+ */
+
+ 
+.thread-post {
+  /* Layout */
+  display: grid; 
+  grid-template-rows: auto 1fr auto; 
+  grid-template-columns: auto 1fr 2em;
+
+  /* Margins */
+  margin-left: 2.3em;
+  margin-right: 2.3em;
+  text-align: left;
+  font-size: 0.9em;
+}
+
+.thread-post-info {
+  grid-row: 1 / 2;
+  grid-column: 2 / 3;
+}
+.thread-post-content {
+  grid-row: 2 / 3;
+  grid-column: 2 / 3;
+  padding: 0.3em 0;
+  min-height: 2.4em;
+}
+.thread-post-actions {
+  grid-row: 3 / 4;
+  grid-column: 2 / 3;
+}
+
+.thread-post-user {
+  grid-row: 1 / 4;
+  grid-column: 1 / 2;
+}
+.thread-post-aux {
+  grid-row: 1 / 4;
+  grid-column: 3 / 4;
+}
+
+
+.thread-post > * {
+  outline: 2px dashed var(--color-border);
+}
+
+/* Margins */
+.thread-post {
+  
+}
+
+
+.thread-post.root-post h4 {
+  padding: 1em;
+  margin-top: 0em;
+  border-bottom: 2px dashed var(--color-underline);
+}
+.thread-post p {
+  padding: 0.2em 1em;
+}

@@ -15,15 +15,7 @@
 </template>
 
 <style>
-.post-editor {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  margin-left: 3em; 
-}
-.post-editor > * {
-  max-width: 40em;
-}
+
 </style>
 
 <script lang="ts">

@@ -12,43 +12,6 @@
   </div>
 </template>
 
-<style>
-
-/** MOVE TO GLOBAL */
-
-.user-login-panel {
-  display: flex;
-  font-size: 1em;
-  align-items: center;
-  padding: 0.4em;
-}
-
-.user-login-panel:hover {
-  border-radius: 0.5em 0.0em 0.0em 0.5em;
-  background: rgba(0,0,0,0.046);
-  cursor: pointer;
-  transition: background 0.19s;
-}
-
-.user-login-panel > * {
-  margin-left: 0.2em;
-}
-
-/** ACCESSIBLE? FILE INPUT */
-[type="file"] {
-  border: 0;
-  clip: rect(0, 0, 0, 0);
-  height: 1px;
-  overflow: hidden;
-  padding: 0;
-  position: absolute !important;
-  white-space: nowrap;
-  width: 1px;
-}
- 
-
-</style>
-
 <script lang="ts">
 
 import Vue from 'vue'
@@ -62,7 +25,6 @@ export default Vue.extend({
     walletAddress: null as null | string,
     isLoading: false, 
   }),
-
 
   methods: {
     async onFilesSelected(event: any) {

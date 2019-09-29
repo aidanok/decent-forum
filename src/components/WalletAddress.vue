@@ -2,7 +2,6 @@
   <span>
     <span>{{start}} </span><span>...</span><span> {{end}}</span>
   </span>
-
 </template>
 
 <script lang="ts">

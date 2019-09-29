@@ -1,0 +1,18 @@
+
+/**
+ * CSS For colors. 
+ * 
+ * This should be the only place we ever see color pickers! 
+ * All other css files should use these vars.
+ * (we might not need to be so strict about this, but as a rule of thumb)
+ *
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties
+ * 
+ *
+ */
+
+
+body {
+  --color-border: rgba(121, 202, 101, 0.3);
+  --color-underline: rgba(22, 98, 22, 0.6);
+}

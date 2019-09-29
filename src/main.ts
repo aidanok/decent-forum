@@ -8,6 +8,8 @@ import Filters from '@/filters/'
 // import 'bulma/css/bulma.css';
 import 'remixicon/fonts/remixicon.css'
 
+Vue.use(require('vue-moment'));
+
 
 // Load every component from _common
 const req = require.context('./components/', false, /\.(js|vue)$/i)
