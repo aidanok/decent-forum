@@ -1,7 +1,9 @@
 <template>
   <div>
     <div v-if="rootNode">
-    <h4> {{ rootNode.post.tags.descripton }} </h4>
+      <h3 class="thread-forum-title"> 
+        {{ forumTitle.join(' > ')}}
+      </h3>
     <thread-post :postNode=rootNode :shared=shared>
     </thread-post>
     <thread-post v-for="(n, k) in flatReplies" :key=k :postNode=n :shared=shared>
@@ -17,7 +19,7 @@
 <script lang="ts">
 
 import Vue from 'vue'
-import { PostTreeNode, CachedForumPost, queryPosts } from 'decent-forum-api';
+import { PostTreeNode, CachedForumPost, queryPosts, decodeForumPath } from 'decent-forum-api';
 import { queryThread } from 'decent-forum-api/query/query';
 import { SharedState } from '@/ui-types';
 
@@ -38,18 +40,23 @@ export default Vue.extend({
     },
   },
 
+  data: () => ({
+    rootNode: null as PostTreeNode | null
+  }),
+
   async created() {
     console.log(`Querying thread ${this.txId}`);
     const t = Date.now();
-    const posts = await queryThread(this.txId, 5, this.shared.cache);
+    this.rootNode = await queryThread(this.txId, 5, this.shared.cache);
     console.log(`Got posts in ${(Date.now() - t) / 1000} seconds`);
   },
 
   computed: {
-    rootNode: function(): PostTreeNode | undefined {
-      console.log('computed changed...', this.txId);
-      const n = this.shared.cache.findPostNode(this.txId) 
-      return n;
+    forumTitle: function(): string[] {
+      return this.rootNode ? 
+        decodeForumPath(this.rootNode.post.tags.path0)
+        :
+        [] as string[]
     },
     flatReplies: function(): PostTreeNode[] {
       const replies = [] as PostTreeNode[];

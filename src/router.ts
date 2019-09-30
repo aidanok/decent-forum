@@ -39,22 +39,20 @@ export default new Router({
       },
     }, 
     {
-      path: '/forum',
+      path: '/forum/:forum',
       name: 'fourm',
       component: ViewForum,
       props: (route) => {
         return {
-          path: isString(route.query.forum) ? decodeForumPath(route.query.forum) : [],
+          path: isString(route.params.forum) ? decodeForumPath(route.params.forum) : [],
         }
       }
     },
     {
-      path: '/thread',
+      path: '/thread/:txId',
       name: 'thread',
       component: Thread,
-      props: (route) => ({
-        txId: isString(route.query.txId) ? route.query.txId : ''
-      })
+      props: true,
     }
 
   ],

@@ -35,17 +35,23 @@ import { Slide } from 'vue-burger-menu';
 import { LoggedInUser, SharedState } from './ui-types'
 import { ForumCache } from 'decent-forum-api';
 import { PendingTxTracker } from 'decent-forum-api';
+import { BlockWatcher } from '../../decent-forum-api/src/block-watcher/block-watcher';
 
 export default Vue.extend({
 
   components: { Slide },
 
   data: () => {
-    
+    const cache = new ForumCache();
+    const blockWatcher = new BlockWatcher();
+    const tracker = new PendingTxTracker(cache, blockWatcher);
+
     // Declare here so we get type errors early.
     const shared: SharedState = {
       user: { loggedIn: false },
-      cache: new ForumCache()
+      cache,
+      tracker,
+      blockWatcher
     }
 
     return {
@@ -62,7 +68,7 @@ export default Vue.extend({
   methods: {
     onUserLogin(user: any) {
       console.log('user logged in');
-      this.shared.user = Object.assign({}, user, { loggedIn: true, pending: new PendingTxTracker() });
+      this.shared.user = Object.assign({}, user, { loggedIn: true });
     },
     onProfileClick() {
       console.log('profile click');

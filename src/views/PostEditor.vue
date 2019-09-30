@@ -55,8 +55,7 @@ export default Vue.extend({
           editOf: this.editOf,
         }
         const tags = buildPostTags(decodeForumPath(this.forum), opts)
-        const txId = await postPost(this.shared.user.wallet, this.content, tags);
-        console.log(this.shared.user.pending)
+        const txId = await postPost(this.shared.user.wallet, this.content, tags, this.shared.tracker);
         console.info(`Posted: ${txId}`);
       }
     }

@@ -10,7 +10,6 @@
   </div>
 </template>
 
-
 <script lang="ts">
 
 import Vue from 'vue'
@@ -32,8 +31,6 @@ export default Vue.extend({
   computed: {
     forumNode: function(): null | ForumTreeNode {
       const node = this.shared.cache.findForumNode(this.path)
-     
-      console.log(`forumNodeChanged`, node);
       return node;
     }
   },
@@ -41,7 +38,7 @@ export default Vue.extend({
   created() {
     if (!this.shared.cache.findForumNode(this.path)) {
       console.info(`Forum ${this.path.join('>')} not found in cache, refreshing cache`);
-      queryPosts(this.shared.cache);
+      queryPosts(this.path, this.shared.cache);
     }
   }
 

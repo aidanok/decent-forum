@@ -54,7 +54,7 @@ a8"    `Y88  a8P_____88  a8"     ""  a8P_____88  88P'   `"8a   88           88  
 
 .ascii-logo {
   font-size: 5px;
-  line-height: 6px;
+  line-height: 5px;
   font-weight: bolder;
   font-family: monospace;
   color:rgb(37, 36, 36);
@@ -71,7 +71,7 @@ a8"    `Y88  a8P_____88  a8"     ""  a8P_____88  88P'   `"8a   88           88  
 
 .ascii-logo-foo2 > * {
   animation-name: spin;
-  animation-duration: 0.75s;
+  animation-duration: 1.75s;
   animation-delay: calc(var(--pos-x) * 0.001s * var(--pos-y));
   animation-iteration-count: 1;
 }
@@ -137,7 +137,7 @@ export default Vue.extend({
     })
     setInterval(() => {
       //this.foo = !this.foo;
-    }, 32000)
+    }, 6000)
   },
 
   

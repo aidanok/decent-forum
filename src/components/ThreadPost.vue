@@ -1,17 +1,26 @@
 <template>
-  
-  <div class="thread-post">
+  <!-- These css vars DONT get inherited.. boo ! -->
+  <div 
+    v-bind:style="{ cssVars: true }" 
+    v-bind:class="{'thread-post-is-root': postNode.isRootPost() }" 
+    class="thread-post-container">
+
+  <div v-bind:class="{ 'thread-post-is-root': postNode.isRootPost() }" class="thread-post">
     
+    <div v-if="postNode.isRootPost()" class="thread-post-title">
+      <h3> {{ postNode.post.tags.description }} </h3>
+    </div>
+
     <div class="thread-post-time">
       {{ postNode.post.date | moment('from') }}
     </div>
 
     <wallet-address class="thread-post-from" :address=postNode.post.from></wallet-address>
     
-    <div class="thread-post-info">   
+    <div class="thread-post-info">
     </div>
 
-    <div class="thread-post-content"> 
+    <div class="thread-post-content">
       {{ postNode.post.content }}
     </div>
 
@@ -27,9 +36,10 @@
       <i class="ri-thumb-down-line"></i>
     </div>
 
-    <post-reply v-if="replying">
+    
+  </div>
+    <post-reply v-if="replying" @blur="replying = false">
     </post-reply>
-
   </div>
 </template>
 
@@ -53,8 +63,18 @@ export default Vue.extend({
     },
   },
 
+  
+
+  computed: {
+    cssVars: function (): Record<string, any> {
+      return {
+        "--post-time": moment(this.postNode.post.date).fromNow(),
+      }
+    }
+  },
+
   data: () => ({
-    replying: true,
+    replying: false,
   })
 })
 </script>
