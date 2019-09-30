@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@types/node": "12.7.8",
+    "animate-css-grid": "1.4.1",
     "arweave": "1.4.1",
     "core-js": "^2.6.5",
     "graphql-request": "1.8.2",

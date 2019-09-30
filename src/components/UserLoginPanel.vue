@@ -52,11 +52,6 @@ export default Vue.extend({
       }
     },
 
-    // Loads the username from arweave id.
-    async getUserName() {
-      
-    },
-
     openFileDialog(event: any) {
       // Clicking on label will open it anyway.
       if (event.target.tagName == 'I' || event.target.tagName === "DIV") {

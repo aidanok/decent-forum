@@ -32,26 +32,38 @@ a8"    `Y88  a8P_____88  a8"     ""  a8P_____88  88P'   `"8a   88           88  
                                                                           
 </div>
 -->
+
+<div class="ascii-logo" v-bind:class="{ 'ascii-logo-foo2': foo }" v-crazy>
+  ____                               _     _       _                     ____                                 _   
+ / ___|    ___    _ __ ___     ___  | |_  | |__   (_)  _ __     __ _    |  _ \    ___    ___    ___   _ __   | |_ 
+ \___ \   / _ \  | '_ ` _ \   / _ \ | __| | '_ \  | | | '_ \   / _` |   | | | |  / _ \  / __|  / _ \ | '_ \  | __|
+  ___) | | (_) | | | | | | | |  __/ | |_  | | | | | | | | | | | (_| |   | |_| | |  __/ | (__  |  __/ | | | | | |_ 
+ |____/   \___/  |_| |_| |_|  \___|  \__| |_| |_| |_| |_| |_|  \__, |   |____/   \___|  \___|  \___| |_| |_|  \__|
+                                                               |___/                                              
+                                   
+</div>
   </div>
     
 </template>
 
 <style>
+
 .no-display {
   display: none; 
 }
+
 .ascii-logo {
-  font-size: 4px;
-  line-height: 4px;
-  font-weight: normal;
+  font-size: 5px;
+  line-height: 6px;
+  font-weight: bolder;
   font-family: monospace;
   color:rgb(37, 36, 36);
   margin-left: 1em;
   white-space: pre;
-  
+  text-align: left;
 }
 
-.ascii-logo-foo2 span {
+.ascii-logo-foo span {
   display: inline-block;
   transition: all 0.3s ;
   transform-origin: center;
@@ -59,9 +71,9 @@ a8"    `Y88  a8P_____88  a8"     ""  a8P_____88  88P'   `"8a   88           88  
 
 .ascii-logo-foo2 > * {
   animation-name: spin;
-  animation-duration: 0.45s;
+  animation-duration: 0.75s;
   animation-delay: calc(var(--pos-x) * 0.001s * var(--pos-y));
-  animation-iteration-count: infinite;
+  animation-iteration-count: 1;
 }
 
 @keyframes spin {
@@ -119,9 +131,13 @@ export default Vue.extend({
   }),
 
   created() {
+    let delay = 8000;
+    setTimeout(() => {
+      
+    })
     setInterval(() => {
       //this.foo = !this.foo;
-    }, 4000)
+    }, 32000)
   },
 
   
