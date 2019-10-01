@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Router, { Route } from 'vue-router';
-import Home from './views/Home.vue';
+import AllForums from './views/AllForums.vue';
 import PostEditor from './views/PostEditor.vue';
 import ViewForum from './views/ViewForum.vue';
 import Thread from './views/Thread.vue';
@@ -18,7 +18,7 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: Home,
+      component: AllForums,
     },
     {
       path: '/about',

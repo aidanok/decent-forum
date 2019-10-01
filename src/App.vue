@@ -14,7 +14,7 @@
         <logo class="app-logo"></logo>
         <router-link to="/">Home</router-link>
         <router-link to="/post-edit">
-          Postss
+          Post
           <i class="ri-chat-new-line ri-2x"></i>
         </router-link>  
         <user-login-panel @logged-in=onUserLogin @profile-clicked=onProfileClick></user-login-panel>
@@ -32,7 +32,7 @@
 
 import Vue from 'vue'
 import { Slide } from 'vue-burger-menu';
-import { LoggedInUser, SharedState } from './ui-types'
+import { LoggedInUser, SharedState, getSharedState } from './ui-lib'
 import { ForumCache } from 'decent-forum-api';
 import { PendingTxTracker } from 'decent-forum-api';
 import { BlockWatcher } from '../../decent-forum-api/src/block-watcher/block-watcher';
@@ -42,27 +42,17 @@ export default Vue.extend({
   components: { Slide },
 
   data: () => {
-    const cache = new ForumCache();
-    const blockWatcher = new BlockWatcher();
-    const tracker = new PendingTxTracker(cache, blockWatcher);
-
-    // Declare here so we get type errors early.
-    const shared: SharedState = {
-      user: { loggedIn: false },
-      cache,
-      tracker,
-      blockWatcher
-    }
-
+    
     return {
       time: 0,
       isMenuOpen: false,
-      shared: shared,
+      shared: null as any as SharedState,
     }
   },
 
   created() {
     setInterval(() => this.time++, 1000);
+    this.shared = getSharedState();
   },
 
   methods: {

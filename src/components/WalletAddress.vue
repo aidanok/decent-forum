@@ -1,5 +1,5 @@
 <template>
-  <span>
+  <span class="wallet-address">
     <span v-if="!handle">{{start}}</span>
     <span v-else>{{handle}}</span>
   </span>

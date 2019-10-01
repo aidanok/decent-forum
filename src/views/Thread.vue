@@ -6,8 +6,10 @@
       </h3>
     <thread-post :postNode=rootNode :shared=shared>
     </thread-post>
-    <thread-post v-for="(n, k) in flatReplies" :key=k :postNode=n :shared=shared>
-    </thread-post>
+     <transition-group name="list" tag="div">
+      <thread-post v-for="(n) in flatReplies" :key=n.id :postNode=n :shared=shared>
+      </thread-post>
+     </transition-group>
     </div>
     <div v-else>
       ...
@@ -16,12 +18,29 @@
   
 </template>
 
+<style>
+.list-item {
+  display: block;
+}
+.list-enter-active, .list-leave-active {
+  transition: all 0.5s;
+}
+.list-enter, .list-leave-to /* .list-leave-active below version 2.1.8 */ {
+  opacity: 0;
+  transform: translateY(80px);
+}
+.list-move {
+  transition: transform 1s;
+}
+</style>
+
 <script lang="ts">
 
 import Vue from 'vue'
 import { PostTreeNode, CachedForumPost, queryPosts, decodeForumPath } from 'decent-forum-api';
 import { queryThread } from 'decent-forum-api/query/query';
-import { SharedState } from '@/ui-types';
+import { SharedState } from '@/ui-lib';
+import { scoreByVotesAndTime, sortPostNodes } from '../../../decent-forum-api/src/sorting';
 
 export default Vue.extend({
 
@@ -32,7 +51,7 @@ export default Vue.extend({
     },
     expanded: {
       type: Boolean, 
-      default: true, 
+      default: true,
     },
     shared: {
       type: Object as () => SharedState,
@@ -47,7 +66,11 @@ export default Vue.extend({
   async created() {
     console.log(`Querying thread ${this.txId}`);
     const t = Date.now();
-    this.rootNode = await queryThread(this.txId, 5, this.shared.cache);
+    this.rootNode = this.shared.cache.findPostNode(this.txId);
+
+    await queryThread(this.txId, 5, this.shared.cache);
+    this.rootNode = this.shared.cache.findPostNode(this.txId);
+
     console.log(`Got posts in ${(Date.now() - t) / 1000} seconds`);
   },
 
@@ -72,7 +95,7 @@ export default Vue.extend({
         })
       }
       recurse(this.rootNode);
-      console.log(replies);
+      replies.sort(sortPostNodes);
       return replies;
     }
     /*replies: function(): CachedForumPost[] {

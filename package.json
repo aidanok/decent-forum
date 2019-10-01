@@ -1,6 +1,6 @@
 {
-  "name": "decent-forum-ui-vue",
-  "version": "0.1.0",
+  "name": "decent-forums",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -10,7 +10,6 @@
   "dependencies": {
     "@types/node": "12.7.8",
     "animate-css-grid": "1.4.1",
-    "arweave": "1.4.1",
     "core-js": "^2.6.5",
     "moment": "2.24.0",
     "register-service-worker": "^1.6.2",

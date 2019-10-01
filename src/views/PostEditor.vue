@@ -21,7 +21,7 @@
 <script lang="ts">
 
 import Vue from 'vue'
-import { LoggedInUser, SharedState } from '../ui-types';
+import { LoggedInUser, SharedState } from '../ui-lib';
 import { PostTags } from 'decent-forum-api/schema/post-tags';
 import { buildPostTags, decodeForumPath, postPost } from 'decent-forum-api';
 

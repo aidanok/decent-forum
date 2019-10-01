@@ -36,3 +36,31 @@ export interface AnonymouUser {
 }
 
 export type CurrentUser = LoggedInUser | AnonymouUser;
+
+
+/**
+ * We initialize shared state here as a singleton, 
+ * this is really just for live-reload, as all these
+ * components get reloaded otherwise if we change the App 
+ * root component 
+ */
+
+let sharedState: SharedState
+
+export function getSharedState() {
+  
+  if (!sharedState) {
+    const cache = new ForumCache();
+    const blockWatcher = new BlockWatcher();
+    const tracker = new PendingTxTracker(cache, blockWatcher);
+    sharedState = {
+      user: { loggedIn: false },
+      cache, 
+      tracker,
+      blockWatcher
+    }
+  }
+  return sharedState;
+}
+
+getSharedState(); // init.

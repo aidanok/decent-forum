@@ -73,6 +73,7 @@
   font-size: 1.25em;
 }
 
+
 .thread-post .post-reply {
   grid-column: 1 / 5;
   grid-row: 6 / 5;
@@ -153,16 +154,32 @@
   padding: 0.38em;
   border-radius: 0.4em;
 }
+
 .thread-post-reply-button > * {
   margin-left: 0.3em;
 }
+
 .thread-post-reply-button i {
   font-size: 1.24em;
 }
+
 .thread-post-reply-button:hover {
   color: rgb(100, 100, 100);
-  border: 1px solid rgb(140, 153, 210);
+  border: 1px solid rgb(185, 192, 226);
 }
+
+.thread-post-is-root .thread-post-reply-button {
+   color: rgba(46, 46, 46, 0.82);
+   padding: 0.4em 1em;
+   justify-content: space-between;
+   font-size: 1em;
+}
+
+.thread-post-is-root .thread-post-reply-button:hover {
+  box-shadow: 0 0px 3px 0px rgba(0, 0, 0, 0.24);
+  background: rgba(228, 230, 242, 0.87);
+}
+
 
 .thread-post-vote {
   display: flex;

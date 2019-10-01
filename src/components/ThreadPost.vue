@@ -18,6 +18,7 @@
     <wallet-address class="thread-post-from" :address=postNode.post.from></wallet-address>
     
     <div class="thread-post-info">
+      {{ scoreByVotesAndTime(postNode.post.upVotes, postNode.post.downVotes, postNode.post.date ) }}
     </div>
 
     <div class="thread-post-content">
@@ -28,8 +29,13 @@
     </div>
 
     <!-- TODO Make these top level grid items to allow for full customization -->
+    <!-- TODO removee opacity hack and put in a close button or something -->
     <div class="thread-post-vote">
-      <a role="button" @click="replying = !replying" class="thread-post-reply-button">
+      <a role="button" 
+        v-bind:style="{ 'opacity': replying ? 0.0 : 1.0 }" 
+        @click="replying = !replying" 
+        class="thread-post-reply-button"
+      >
         Reply <i class="ri-reply-line"></i>
       </a>
       <i class="ri-thumb-up-line"></i>
@@ -38,7 +44,13 @@
 
     
   </div>
-    <post-reply v-if="replying" @blur="replying = false">
+    <!-- Use v-show so we keep the state on accidental close -->
+    <post-reply v-if="replying" 
+      :replyToNode="postNode" 
+      :shared="shared" 
+      @blur="replying = false"
+      @posted-reply=postedReply
+    >
     </post-reply>
   </div>
 </template>
@@ -48,7 +60,8 @@ import Vue from 'vue'
 
 import { PostTreeNode } from 'decent-forum-api';
 import moment from 'moment';
-import { CurrentUser, SharedState } from '../ui-types';
+import { CurrentUser, SharedState } from '../ui-lib';
+import { scoreByVotesAndTime } from 'decent-forum-api/sorting'
 import { wrapGrid } from 'animate-css-grid';
 
 export default Vue.extend({
@@ -63,7 +76,15 @@ export default Vue.extend({
     },
   },
 
-  
+  methods: {
+    postedReply(id: string) {
+      this.replying = false;
+      this.$emit('posted-reply', id);
+    },
+    scoreByVotesAndTime(up: number, down: number, t: Date) {
+      return scoreByVotesAndTime(up, down, t);
+    }
+  },
 
   computed: {
     cssVars: function (): Record<string, any> {

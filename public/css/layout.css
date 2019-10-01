@@ -21,6 +21,17 @@ body {
   min-height: 100%;
 }
 
+/* Wide Display */
+@media only screen and (min-width: 1024px) and (max-width: 18199px) {
+  
+}
+
+/* Narrow display */
+@media only screen and (min-width: 100px) and (max-width: 1023px) {
+  
+}
+
+
 .app-layout {
   
   height: 95%;

@@ -6,6 +6,6 @@
  */
 export default [
   [ 'displayForumPath', 
-      (value: string) => value.split('/').join(' > ') 
+      (value: string[]) =>  value.join(' > ')
   ],
 ] as [string, (val: any) => any ][]

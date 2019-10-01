@@ -1,0 +1,38 @@
+.forum-summary {
+  display: grid;
+  grid-template-rows: 2.4em auto;
+  grid-template-columns: 
+    24em repeat(4, [col-start] minmax(100px, 1fr) [col-end]);
+  text-align: left;
+  margin: 0.25em;
+  border-bottom: 2px solid #eee;
+  cursor: pointer;
+}
+.forum-summary > * {
+  text-overflow: ellipsis;
+  border-right: 2px solid #eee;
+  padding-left: 0.3em;
+  border-bottom: 1px solid #ddd;
+  align-self: flex-end;
+
+} 
+.forum-thread-summary {
+  display: grid;
+  grid-template-rows: auto; 
+  grid-template-columns: auto 8em 4em;
+  border: 1px solid black;
+  text-align: left;
+  margin-bottom: 0.4em;
+  cursor: pointer;
+}
+
+.forum-thread-summary > * {
+  padding: 0.4em;
+}
+
+.forum-thread-summary .wallet-address {
+   background: rgba(0,0,0,0.12);
+}
+.forum-thread-summary .thread-score {
+  /* display: none; */
+}
