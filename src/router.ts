@@ -1,10 +1,11 @@
 import Vue from 'vue';
 import Router, { Route } from 'vue-router';
 import AllForums from './views/AllForums.vue';
-import PostEditor from './views/PostEditor.vue';
+import CreateThread from './views/CreateThread.vue';
 import Forum from './views/Forum.vue';
 import Thread from './views/Thread.vue';
 import Media from './views/Media.vue';
+import CreateForum from './views/CreateForum.vue';
 
 import { decodeForumPath } from 'decent-forum-api/lib/forum-paths';
 
@@ -22,12 +23,12 @@ export default new Router({
       component: AllForums,
     },
     {
-      path: '/post-edit',
-      name: 'post-edit',
-      component: PostEditor,
+      path: '/post/:forum',
+      name: 'post',
+      component: CreateThread,
       props: (route) => {
         return {
-          path: isString(route.query.forum) ? decodeForumPath(route.query.forum) : [], 
+          path: isString(route.params.forum) ? decodeForumPath(route.params.forum) : [], 
         }
       },
     }, 
@@ -45,6 +46,12 @@ export default new Router({
       path: '/thread/:txId',
       name: 'thread',
       component: Thread,
+      props: true,
+    },
+    {
+      path: '/create-forum',
+      name: 'create-forum',
+      component: CreateForum,
       props: true,
     },
     {

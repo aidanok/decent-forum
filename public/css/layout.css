@@ -37,7 +37,7 @@ body {
   height: 95%;
   overflow-x: hidden;
   display: grid; 
-  grid-template-columns: 1fr minmax(100px, 800px) 1fr;
+  grid-template-columns: 1fr minmax(100px, 600px) 1fr;
   grid-template-rows: auto 1fr;
   grid-template-areas: "header-left header-center header-right"
                        "content-left content-center content-right"

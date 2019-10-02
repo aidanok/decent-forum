@@ -76,7 +76,7 @@ export default Vue.extend({
   directives: {
     crazy: {
       bind: function(el) {
-        
+        const text = el.innerText;
         const frag = document.createDocumentFragment();
         const childs = [] as any[];
         let x = 1, y = 1;
@@ -114,15 +114,19 @@ export default Vue.extend({
   }),
 
   created() {
-    let delay = 8000;
-    setTimeout(() => {
-      this.foo = true;
-      setTimeout(() => this.foo = false, delay)
-    }, delay)
-    
-    /*setInterval(() => {
-      this.foo = !this.foo;
-    }, 4000)*/
+
+
+    const doLogoAnim = async () => {
+      await new Promise(res => setTimeout(res, 9000)); 
+      while (true) {
+        this.foo = true; 
+        await new Promise(res => setTimeout(res, 8000));
+        this.foo = false;
+        await new Promise(res => setTimeout(res, 120*1000));
+      }
+    }
+
+    doLogoAnim();
   },
 
   

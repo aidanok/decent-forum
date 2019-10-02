@@ -1,10 +1,29 @@
 <template>
   <div ref="ourBox" class="post-reply">
     <textarea ref="textEditor" v-model="content" placeholder="..."></textarea>
-    <a role="button" @click=post>
+    
+    <a v-if="!validationErrors" role="button" @click=post>
       Post Reply
       <i class="ri-send-plane-2-line"></i>
     </a>
+
+    <a
+      v-else 
+      role="button"
+      v-tooltip="{ 
+          trigger: 'click hover', 
+          autoHide: true, 
+          hideOnTargetClick: true, 
+          delay: { show: 100, hide: 100 }, 
+          content: validationErrors, 
+          placement: 'top',
+        }"
+      >
+      Post Reply
+      <i class="ri-send-plane-2-line"></i>
+    </a>
+    
+
   </div> 
 </template>
 
@@ -26,6 +45,10 @@ export default Vue.extend({
       type: Object as () => SharedState,
       required: true,
     },
+    showing: {
+      type: Boolean,
+      default: false,
+    }
   },
 
   data:() => ({
@@ -62,11 +85,28 @@ export default Vue.extend({
     documentClick(e: any) {
       let el = this.$refs.ourBox as Element;
       let target = e.target;    
+      console.log(el);
       if ( el !== target && !el.contains(target)) {
-        this.$emit('blur', {});
+        console.log('matched');
+        if (this.showing) {
+          this.$emit('blur', {});
+        }
       }
     }
   },  
+
+  computed: {
+    validationErrors: function() {
+      let errors: string[] = []; 
+      if (!this.shared.user.loggedIn) {
+        errors.push('- You are not logged in');
+      }
+      if (this.content.length < 1) {
+        errors.push('- Ths content of this post too short!');
+      }
+      return errors.join('<br>');
+    }
+  }
 
 })
 </script>

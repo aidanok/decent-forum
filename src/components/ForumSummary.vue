@@ -1,10 +1,9 @@
 <template>
   <router-link class="forum-summary" :to="`/forum/${summary.encodedPath}`">
-    <div> {{ summary.path | displayForumPath }} </div>
-    <div> {{ summary.posts }} Posts </div>
-    <div> {{ summary.lastPostTime | moment('from') }} </div>
-    <div> + {{ summary.votes.upVotes}} </div>
-    <div> - {{ summary.votes.downVotes }} </div>
+    <div class="forum-summary-forum-name"> {{ summary.path | displayForumPath }} </div>
+    <div class="forum-summary-forum-posts"> {{ summary.posts }} Posts </div>
+    <div class="forum-summary-forum-last-time"> {{ summary.lastPostTime | moment('from') }} </div>
+    <votes-display :votes=summary.votes></votes-display>
   </router-link>
 </template>
 

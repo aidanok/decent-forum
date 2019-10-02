@@ -1,21 +1,45 @@
 <template>
   <div>
-    <div v-if="summarized">
-      <forum-path-header :path=summarized.path></forum-path-header>
-      <div
-        role="button" 
+    <div v-if="summarized" class="forum-content-page">
+      
+      <div class="forum-content-page-top-bar">
+        <forum-path-header :path=summarized.path></forum-path-header>
+        <router-link :to="`/post/${encodedPath}`">
+          New Thread
+          <i class="ri-discuss-fill"></i>
+        </router-link>
+      </div>
+      
+      <div class="forum-thread-summary-header">
+        <div> Thread </div> 
+        <div> Started By </div>
+        <div> Last Post Time </div>
+        <div> Votes </div>
+      </div>
+
+      <router-link
+        :to="`/thread/${thread.id}`" 
         class="forum-thread-summary" 
         v-for="(thread, index) in summarized.threads" 
         :key=index
         @click=" $router.push({path: `/thread/${thread.id}`}) "
       >
         <div class="thread-title"> {{ thread.description }} </div>
-        <wallet-address :address=thread.from></wallet-address> 
-        <div class="thread-score"> {{ thread.upVotes }} </div>
-      </div>
+        <wallet-address class="thread-started-by" :address=thread.from></wallet-address>
+        <div class="last-post-time">{{ thread.lastPostTime | moment('from') }}</div>
+        <votes-display :votes=thread> </votes-display>
+
+
+      </router-link>
     </div>
-    <div v-if="noPosts">
-      No posts here yet
+    <div class="empty-forum" v-if="noPosts">
+      <p>
+        There are no posts here yet ! <i class="ri-fire-line"></i> 
+      </p>
+      <p>
+        You can post the first thread and create the forum
+      </p>
+      <new-post :path=path :shared=shared @posted="firstPosted"></new-post>
     </div>
     <div v-if="!noPosts && !summarized" class="loading-centered lds-dual-ring"></div>
   </div>
@@ -25,7 +49,7 @@
 
 import Vue from 'vue';
 import { SharedState } from '@/ui-lib';
-import { queryPosts, ForumTreeNode } from 'decent-forum-api';
+import { queryPosts, ForumTreeNode, encodeForumPath } from 'decent-forum-api';
 import { SimpleForumContents, summarizeForum, simpleForumContents } from '@/ui-lib/transforms';
 
 export default Vue.extend({
@@ -49,6 +73,10 @@ export default Vue.extend({
   computed: {
     summarized: function(): SimpleForumContents | null {
       return this.forumNode && simpleForumContents(this.forumNode);
+    },
+
+    encodedPath: function(): string {
+      return encodeForumPath(this.path);
     }
   },
 
@@ -60,6 +88,10 @@ export default Vue.extend({
 
   methods: {
     async loadForum() {
+      this.forumNode = null;
+      this.error = null;
+      this.noPosts = false;
+
       console.info(`Loading forum: ${this.path.join(' > ')}`);
       //this.forumNode = this.shared.cache.findForumNode(this.path);
       await queryPosts(this.path, this.shared.cache, true);
@@ -67,6 +99,9 @@ export default Vue.extend({
       if (!this.forumNode) {
         this.noPosts = true;
       }
+    },
+    firstPosted() {
+      this.loadForum();
     }
   },
 

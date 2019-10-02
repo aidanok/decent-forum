@@ -18,7 +18,6 @@
     <wallet-address class="thread-post-from" :address=postNode.post.from></wallet-address>
     
     <div class="thread-post-info">
-      {{ scoreByVotesAndTime(postNode.post.upVotes, postNode.post.downVotes, postNode.post.date ) }}
     </div>
 
     <div class="thread-post-content">
@@ -44,10 +43,12 @@
 
     
   </div>
-    <!-- Use v-show so we keep the state on accidental close -->
-    <post-reply v-if="replying" 
+    <!-- TODO: keep state on close/re-open -->
+    <post-reply 
+      v-if="replying" 
       :replyToNode="postNode" 
       :shared="shared" 
+      :showing="replying"
       @blur="replying = false"
       @posted-reply=postedReply
     >

@@ -22,13 +22,13 @@
  
 
 .thread-post-container {
-  margin-left: 3em;
+  margin-left: 1.2em;
   margin-right: 2.3em;
   font-size: 0.9em;
 }
 
 .thread-post-is-root.thread-post-container {
-  margin-left: 1.4em;
+  margin-left: 0em;
 }
 
 .post-reply {

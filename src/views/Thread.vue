@@ -1,9 +1,10 @@
 <template>
   <div>
-    <div v-if="rootNode">
-      <h3 class="thread-forum-title"> 
-        {{ forumTitle.join(' > ')}}
-      </h3>
+    <div v-if="rootNode" class="forum-content-page">
+    <div class="forum-content-page-top-bar">
+      <forum-path-header :path=path :extraSegment=postTitle></forum-path-header>
+    </div>
+     
     <thread-post :postNode=rootNode :shared=shared>
     </thread-post>
      <transition-group name="list" tag="div">
@@ -63,6 +64,15 @@ export default Vue.extend({
   },
 
   computed: {
+
+    path: function(): string[] {
+      return this.rootNode ? this.rootNode.forum.segments : [];
+    },
+
+    postTitle: function(): string {
+      return this.rootNode ? (this.rootNode.post.tags.description || '') : ''
+    },
+
     forumTitle: function(): string[] {
       return this.rootNode ? 
         decodeForumPath(this.rootNode.post.tags.path0)
@@ -86,9 +96,6 @@ export default Vue.extend({
       replies.sort(sortPostNodes);
       return replies;
     }
-    /*replies: function(): CachedForumPost[] {
-      return Object.values(this.postNode.replies).map(node => node.post)
-    }*/
   }
 
 })

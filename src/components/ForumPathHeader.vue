@@ -1,11 +1,22 @@
 <template>
   <div class="forum-path-header">
-    <router-link 
-      v-for="(segment, index) in path" 
-      :to="`/forum/${encodedPathFor(index)}`"
-      :key="index">
-      {{ segmentTextFor(index) }}
-    </router-link>
+    
+    <router-link to="/">All Forums</router-link> 
+    
+    <span class="forum-path-header-seperator"></span>
+
+    <span v-for="(segment, index) in path" :key="index">
+      <router-link 
+        :to="`/forum/${encodedPathFor(index)}`"
+        :key="index">
+        {{segment}}</router-link>
+    
+    <span v-if="extraSegment || index !== path.length - 1" class="forum-path-header-seperator">
+    </span>
+    
+    <span v-if="extraSegment">{{extraSegment}}</span>
+    </span>
+    
   </div>
 </template>
 
@@ -19,6 +30,10 @@ export default Vue.extend({
       type: Array as () => string[],
       required: true, 
     },
+    extraSegment: {
+      type: String, 
+      default: '',
+    }
   },
   created() {
     console.log('FORUM');

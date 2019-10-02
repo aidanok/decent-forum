@@ -16,8 +16,8 @@
           Home
           <i class="ri-discuss-line ri-2x"></i>
           </router-link>
-        <router-link to="/post-edit">
-          Post
+        <router-link to="/create-forum">
+          Create Forum
           <i class="ri-chat-new-line ri-2x"></i>
         </router-link>  
         <user-login-panel @logged-in=onUserLogin @profile-clicked=onProfileClick></user-login-panel>
