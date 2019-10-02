@@ -52,14 +52,14 @@ export default Vue.extend({
   }),
 
   async created() {
-    console.log(`Querying thread ${this.txId}`);
+    console.info(`Querying thread ${this.txId}`);
     const t = Date.now();
     this.rootNode = this.shared.cache.findPostNode(this.txId);
 
     await queryThread(this.txId, 5, this.shared.cache);
     this.rootNode = this.shared.cache.findPostNode(this.txId);
 
-    console.log(`Got posts in ${(Date.now() - t) / 1000} seconds`);
+    console.info(`Got posts in ${(Date.now() - t) / 1000} seconds`);
   },
 
   computed: {

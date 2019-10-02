@@ -60,12 +60,9 @@ export default Vue.extend({
 
   methods: {
     onUserLogin(user: any) {
-      console.log('user logged in');
       this.shared.user = Object.assign({}, user, { loggedIn: true });
     },
     onProfileClick() {
-      console.log('profile click');
-      this.isMenuOpen = !this.isMenuOpen;
     }
   }
 })

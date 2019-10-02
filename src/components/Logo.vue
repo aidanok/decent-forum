@@ -1,102 +1,13 @@
 <template>
   <div class="app-logo-container">
-    <!--
-  <div class="no-display ascii-logo" v-bind:class="{ 'ascii-logo-foo2': foo }" v-crazy>
-  __                                    __           ___                                       
- /\ \                                  /\ \__      /'___\                                      
- \_\ \      __     ___      __     ___ \ \ ,_\    /\ \__/   ___    _ __   __  __    ___ ___    
- /'_` \   /'__`\  /'___\  /'__`\ /' _ `\\ \ \/    \ \ ,__\ / __`\ /\`'__\/\ \/\ \ /' __` __`\  
-/\ \L\ \ /\  __/ /\ \__/ /\  __/ /\ \/\ \\ \ \_    \ \ \_//\ \L\ \\ \ \/ \ \ \_\ \/\ \/\ \/\ \ 
-\ \___,_\\ \____\\ \____\\ \____\\ \_\ \_\\ \__\    \ \_\ \ \____/ \ \_\  \ \____/\ \_\ \_\ \_\
- \/__,_ / \/____/ \/____/ \/____/ \/_/\/_/ \/__/     \/_/  \/___/   \/_/   \/___/  \/_/\/_/\/_/
-  </div>
-  <div class="no-display ascii-logo" v-bind:class="{ 'ascii-logo-foo2': foo }" v-crazy>
-                                                                                                                                            
-         88                                                                  ad88                                                           
-         88                                                    ,d           d8"                                                             
-         88                                                    88           88                                                              
- ,adPPYb,88   ,adPPYba,   ,adPPYba,   ,adPPYba,  8b,dPPYba,  MM88MMM      MM88MMM  ,adPPYba,   8b,dPPYba,  88       88  88,dPYba,,adPYba,   
-a8"    `Y88  a8P_____88  a8"     ""  a8P_____88  88P'   `"8a   88           88    a8"     "8a  88P'   "Y8  88       88  88P'   "88"    "8a  
-8b       88  8PP"""""""  8b          8PP"""""""  88       88   88           88    8b       d8  88          88       88  88      88      88  
-"8a,   ,d88  "8b,   ,aa  "8a,   ,aa  "8b,   ,aa  88       88   88,          88    "8a,   ,a8"  88          "8a,   ,a88  88      88      88  
- `"8bbdP"Y8   `"Ybbd8"'   `"Ybbd8"'   `"Ybbd8"'  88       88   "Y888        88     `"YbbdP"'   88           `"YbbdP'Y8  88      88      88  
-  </div>
-
-<div class="no-display ascii-logo" v-bind:class="{ 'ascii-logo-foo2': foo }" v-crazy>
-     _                                     ___                            
-    | |                           _       / __)                           
-  _ | |  ____  ____  ____  ____  | |_    | |__  ___    ____  _   _  ____  
- / || | / _  )/ ___)/ _  )|  _ \ |  _)   |  __)/ _ \  / ___)| | | ||    \ 
-( (_| |( (/ /( (___( (/ / | | | || |__   | |  | |_| || |    | |_| || | | |
- \____| \____)\____)\____)|_| |_| \___)  |_|   \___/ |_|     \____||_|_|_|
-                                                                          
-</div>
--->
-<!--
-<div class="ascii-logo" v-bind:class="{ 'ascii-logo-foo2': foo }" v-crazy>
-________                              __   
-\______ \   ____   ____  ____   _____/  |_ 
- |    |  \_/ __ \_/ ___\/ __ \ /    \   __\
- |    `   \  ___/\  \__\  ___/|   |  \  |  
-/_______  /\___  >\___  >___  >___|  /__|  
-        \/     \/     \/    \/     \/      
-</div>
-
-<div class="ascii-logo" v-bind:class="{ 'ascii-logo-foo2': foo }" v-crazy> 
-   _____
-  /  _  \
- /  /_\  \
-/    |    \
-\____|__  /
-        \/ 
-</div>
-
-<div class="ascii-logo" v-bind:class="{ 'ascii-logo-foo2': foo }" v-crazy>                          
-___________                                
-\_   _____/__________ __ __  _____         
- |    __)/  _ \_  __ \  |  \/     \        
- |     \(  &lt;_> )  | \/  |  /  Y Y  \       
- \___  / \____/|__|  |____/|__|_|  /       
-     \/                          \/       
-</div>
--->
-<!--
-<div class="ascii-logo" v-bind:class="{ 'ascii-logo-foo2': foo }" v-crazy> 
-______                    _   
-|  _  \                  | |  
-| | | |___  ___ ___ _ __ | |_ 
-| | | / _ \/ __/ _ \ '_ \| __|
-| |/ /  __/ (_|  __/ | | | |_ 
-|___/ \___|\___\___|_| |_|\__|
-</div>
-<div class="ascii-logo" v-bind:class="{ 'ascii-logo-foo2': foo }" v-crazy>
-
-
-  __ _ 
- / _` |
-| (_| |
- \__,_|
-       
-</div>
-<div class="ascii-logo" v-bind:class="{ 'ascii-logo-foo3': foo }" v-crazy>
-______                         
-|  ___|                        
-| |_ ___  _ __ _   _ _ __ ___  
-|  _/ _ \| '__| | | | '_ ` _ \ 
-| || (_) | |  | |_| | | | | | |
-\_| \___/|_|   \__,_|_| |_| |_|
-                               
-                               
-</div> -->
-
-<div class="ascii-logo" v-bind:class="{ 'ascii-logo-foo2': foo, 'ascii-logo-foo3': foo }" v-crazy>
+    <div class="ascii-logo" v-bind:class="{ 'ascii-logo-foo2': foo, 'ascii-logo-foo3': foo }" v-crazy>
 ______                    _                     ______                         
 |  _  \                  | |                    |  ___|                        
 | | | |___  ___ ___ _ __ | |_ ______ __ _ ______| |_ ___  _ __ _   _ _ __ ___  
 | | | / _ \/ __/ _ \ '_ \| __|______/ _` |______|  _/ _ \| '__| | | | '_ ` _ \ 
 | |/ /  __/ (_|  __/ | | | |_      | (_| |      | || (_) | |  | |_| | | | | | |
 |___/ \___|\___\___|_| |_|\__|      \__,_|      \_| \___/|_|   \__,_|_| |_| |_|
-</div>
+    </div>
 
 </div>
     
@@ -112,10 +23,11 @@ ______                    _                     ______
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
+  margin-left: 1em;
 }
 
 .ascii-logo {
-  font-size: 3px;
+  font-size: 4px;
   line-height: 4px;
   font-weight: bolder;
   font-family: monospace;
@@ -164,8 +76,6 @@ export default Vue.extend({
   directives: {
     crazy: {
       bind: function(el) {
-        console.log('el was binded', el)
-        const text = el.innerText;
         
         const frag = document.createDocumentFragment();
         const childs = [] as any[];
@@ -195,7 +105,6 @@ export default Vue.extend({
 
       },
       inserted: function (el) {
-        console.log('el was inseerrrted', el);
       }
     },
   },

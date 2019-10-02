@@ -44,7 +44,6 @@ export default Vue.extend({
 
   async created() {
     const data = await queryPosts([], this.shared.cache);
-    // console.log(JSON.parse(JSON.stringify(this.shared.cache.forums, (k,v) => k === 'parent' ? undefined : v)));
     this.forums = Object.values(this.shared.cache.forums.children)
   }
 });
