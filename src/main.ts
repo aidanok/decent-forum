@@ -7,7 +7,9 @@ import Filters from '@/filters/'
 
 // import 'bulma/css/bulma.css';
 import 'remixicon/fonts/remixicon.css'
+import VTooltip from 'v-tooltip'
 
+Vue.use(VTooltip);
 Vue.use(require('vue-moment'));
 
 

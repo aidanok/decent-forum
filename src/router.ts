@@ -2,8 +2,9 @@ import Vue from 'vue';
 import Router, { Route } from 'vue-router';
 import AllForums from './views/AllForums.vue';
 import PostEditor from './views/PostEditor.vue';
-import ViewForum from './views/ViewForum.vue';
+import Forum from './views/Forum.vue';
 import Thread from './views/Thread.vue';
+import Media from './views/Media.vue';
 
 import { decodeForumPath } from 'decent-forum-api/lib/forum-paths';
 
@@ -21,14 +22,6 @@ export default new Router({
       component: AllForums,
     },
     {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue'),
-    },
-    {
       path: '/post-edit',
       name: 'post-edit',
       component: PostEditor,
@@ -41,7 +34,7 @@ export default new Router({
     {
       path: '/forum/:forum',
       name: 'fourm',
-      component: ViewForum,
+      component: Forum,
       props: (route) => {
         return {
           path: isString(route.params.forum) ? decodeForumPath(route.params.forum) : [],
@@ -53,6 +46,12 @@ export default new Router({
       name: 'thread',
       component: Thread,
       props: true,
+    },
+    {
+      path: '/media',
+      name: 'media',
+      component: Media,
+      props: true, 
     }
 
   ],

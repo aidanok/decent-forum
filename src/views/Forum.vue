@@ -14,7 +14,10 @@
         <div class="thread-score"> {{ thread.upVotes }} </div>
       </div>
     </div>
-    <div v-else class="loading-centered lds-dual-ring"></div>
+    <div v-if="noPosts">
+      No posts here yet
+    </div>
+    <div v-if="!noPosts && !summarized" class="loading-centered lds-dual-ring"></div>
   </div>
 </template>
 

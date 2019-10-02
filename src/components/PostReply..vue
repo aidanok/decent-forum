@@ -13,6 +13,7 @@
 import Vue from 'vue'
 import { postPost, PostTreeNode, buildPostTags } from 'decent-forum-api';
 import { CurrentUser, LoggedInUser, SharedState } from '../ui-lib';
+import { buildPostTagsForReply } from '../../../decent-forum-api/src/lib/post';
 
 export default Vue.extend({
 
@@ -50,10 +51,8 @@ export default Vue.extend({
   methods: {
 
     async post() {
-      const tags = buildPostTags(this.replyToNode.getForumPath(), {
-        replyTo: this.replyToNode.id, 
-        format: 'Plaintext'
-      })
+      
+      const tags = buildPostTagsForReply(this.replyToNode, { format: 'Plaintext' })
       if (this.shared.user.loggedIn) {
         const id = await postPost(this.shared.user.wallet!, this.content, tags, this.shared.tracker);
         this.$emit('posted-reply', id);

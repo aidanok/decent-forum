@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="!wallet" class="user-login-panel" @click="openFileDialog">
+    <div v-if="!wallet" class="user-login-panel not-logged-in" @click="openFileDialog">
       <input type="file" id="loginFileUpload" @change="onFilesSelected" />
       <label for="loginFileUpload">Sign in !</label>
       <i class="ri-login-box-line ri-2x"></i>
@@ -11,6 +11,11 @@
     </div>
   </div>
 </template>
+
+<style scoped>
+  
+
+</style> 
 
 <script lang="ts">
 

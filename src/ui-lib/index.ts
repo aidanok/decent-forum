@@ -1,6 +1,7 @@
 import { ForumCache } from 'decent-forum-api';
 import { PendingTxTracker } from 'decent-forum-api';
 import { BlockWatcher } from 'decent-forum-api/block-watcher/block-watcher';
+import { ContentWatcher } from 'decent-forum-api/content-watcher/content-watcher';
   
 /**
  * Shared Global State
@@ -23,6 +24,7 @@ export interface SharedState {
   cache: ForumCache
   tracker: PendingTxTracker
   blockWatcher: BlockWatcher
+  contentWatcher: ContentWatcher
 }
 
 export interface LoggedInUser {
@@ -53,11 +55,13 @@ export function getSharedState() {
     const cache = new ForumCache();
     const blockWatcher = new BlockWatcher();
     const tracker = new PendingTxTracker(cache, blockWatcher);
+    const contentWatcher = new ContentWatcher(blockWatcher);
     sharedState = {
       user: { loggedIn: false },
       cache, 
       tracker,
-      blockWatcher
+      blockWatcher,
+      contentWatcher,
     }
   }
   return sharedState;

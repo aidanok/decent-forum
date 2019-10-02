@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="app-logo-container">
     <!--
   <div class="no-display ascii-logo" v-bind:class="{ 'ascii-logo-foo2': foo }" v-crazy>
   __                                    __           ___                                       
@@ -32,17 +32,73 @@ a8"    `Y88  a8P_____88  a8"     ""  a8P_____88  88P'   `"8a   88           88  
                                                                           
 </div>
 -->
-
+<!--
 <div class="ascii-logo" v-bind:class="{ 'ascii-logo-foo2': foo }" v-crazy>
-  ____                               _     _       _                     ____                                 _   
- / ___|    ___    _ __ ___     ___  | |_  | |__   (_)  _ __     __ _    |  _ \    ___    ___    ___   _ __   | |_ 
- \___ \   / _ \  | '_ ` _ \   / _ \ | __| | '_ \  | | | '_ \   / _` |   | | | |  / _ \  / __|  / _ \ | '_ \  | __|
-  ___) | | (_) | | | | | | | |  __/ | |_  | | | | | | | | | | | (_| |   | |_| | |  __/ | (__  |  __/ | | | | | |_ 
- |____/   \___/  |_| |_| |_|  \___|  \__| |_| |_| |_| |_| |_|  \__, |   |____/   \___|  \___|  \___| |_| |_|  \__|
-                                                               |___/                                              
-                                   
+________                              __   
+\______ \   ____   ____  ____   _____/  |_ 
+ |    |  \_/ __ \_/ ___\/ __ \ /    \   __\
+ |    `   \  ___/\  \__\  ___/|   |  \  |  
+/_______  /\___  >\___  >___  >___|  /__|  
+        \/     \/     \/    \/     \/      
 </div>
-  </div>
+
+<div class="ascii-logo" v-bind:class="{ 'ascii-logo-foo2': foo }" v-crazy> 
+   _____
+  /  _  \
+ /  /_\  \
+/    |    \
+\____|__  /
+        \/ 
+</div>
+
+<div class="ascii-logo" v-bind:class="{ 'ascii-logo-foo2': foo }" v-crazy>                          
+___________                                
+\_   _____/__________ __ __  _____         
+ |    __)/  _ \_  __ \  |  \/     \        
+ |     \(  &lt;_> )  | \/  |  /  Y Y  \       
+ \___  / \____/|__|  |____/|__|_|  /       
+     \/                          \/       
+</div>
+-->
+<!--
+<div class="ascii-logo" v-bind:class="{ 'ascii-logo-foo2': foo }" v-crazy> 
+______                    _   
+|  _  \                  | |  
+| | | |___  ___ ___ _ __ | |_ 
+| | | / _ \/ __/ _ \ '_ \| __|
+| |/ /  __/ (_|  __/ | | | |_ 
+|___/ \___|\___\___|_| |_|\__|
+</div>
+<div class="ascii-logo" v-bind:class="{ 'ascii-logo-foo2': foo }" v-crazy>
+
+
+  __ _ 
+ / _` |
+| (_| |
+ \__,_|
+       
+</div>
+<div class="ascii-logo" v-bind:class="{ 'ascii-logo-foo3': foo }" v-crazy>
+______                         
+|  ___|                        
+| |_ ___  _ __ _   _ _ __ ___  
+|  _/ _ \| '__| | | | '_ ` _ \ 
+| || (_) | |  | |_| | | | | | |
+\_| \___/|_|   \__,_|_| |_| |_|
+                               
+                               
+</div> -->
+
+<div class="ascii-logo" v-bind:class="{ 'ascii-logo-foo2': foo, 'ascii-logo-foo3': foo }" v-crazy>
+______                    _                     ______                         
+|  _  \                  | |                    |  ___|                        
+| | | |___  ___ ___ _ __ | |_ ______ __ _ ______| |_ ___  _ __ _   _ _ __ ___  
+| | | / _ \/ __/ _ \ '_ \| __|______/ _` |______|  _/ _ \| '__| | | | '_ ` _ \ 
+| |/ /  __/ (_|  __/ | | | |_      | (_| |      | || (_) | |  | |_| | | | | | |
+|___/ \___|\___\___|_| |_|\__|      \__,_|      \_| \___/|_|   \__,_|_| |_| |_|
+</div>
+
+</div>
     
 </template>
 
@@ -52,9 +108,15 @@ a8"    `Y88  a8P_____88  a8"     ""  a8P_____88  88P'   `"8a   88           88  
   display: none; 
 }
 
+.app-logo-container {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
 .ascii-logo {
-  font-size: 5px;
-  line-height: 5px;
+  font-size: 3px;
+  line-height: 4px;
   font-weight: bolder;
   font-family: monospace;
   color:rgb(37, 36, 36);
@@ -70,15 +132,27 @@ a8"    `Y88  a8P_____88  a8"     ""  a8P_____88  88P'   `"8a   88           88  
 }
 
 .ascii-logo-foo2 > * {
-  animation-name: spin;
-  animation-duration: 1.75s;
-  animation-delay: calc(var(--pos-x) * 0.001s * var(--pos-y));
+  animation: spin 0.87s;
+  animation-delay: calc(var(--pos-x) * 0.01s * var(--pos-y));
   animation-iteration-count: 1;
 }
 
+
+.ascii-logo-foo3 > * {
+  animation: color 0.17s;
+  animation-delay: calc(var(--pos-x) * 0.003s * var(--pos-y)) ;
+  animation-iteration-count: 1;
+  animation-direction: alternate;
+}
+
 @keyframes spin {
-    from {transform:rotate(0deg);}
-    to {transform:rotate(360deg);}
+    from {transform:rotate(0deg) }
+    to {transform:rotate(360deg) }
+}
+
+@keyframes color {
+  from {color:rgb(37, 36, 36); transform:scale(1)}
+  to {color:rgb(102, 107, 122); transform:scale(2.5) }
 }
 
 </style>
@@ -133,11 +207,13 @@ export default Vue.extend({
   created() {
     let delay = 8000;
     setTimeout(() => {
-      
-    })
-    setInterval(() => {
-      //this.foo = !this.foo;
-    }, 6000)
+      this.foo = true;
+      setTimeout(() => this.foo = false, delay)
+    }, delay)
+    
+    /*setInterval(() => {
+      this.foo = !this.foo;
+    }, 4000)*/
   },
 
   

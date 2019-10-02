@@ -8,12 +8,13 @@
   text-decoration: none; 
   display: flex;
   align-items: center;
-  padding: 0.4em 0.9em;
+  margin: 0.5em 0em;
+  padding: 0.25em 0.9em;
   color: #2c3e50;
 }
 
 .app-header a > * {
-  margin-left: 0.2em;
+  margin-left: 0.4em;
 }
 
 .app-header a:hover {
@@ -52,7 +53,23 @@
   max-width: 40em;
 }
 
-/** BURGER MENU */
+/** vue transition group css */
+
+.list-item {
+  display: block;
+}
+.list-enter-active, .list-leave-active {
+  transition: all 0.5s;
+}
+.list-enter, .list-leave-to /* .list-leave-active below version 2.1.8 */ {
+  opacity: 0;
+  transform: translateY(80px);
+}
+.list-move {
+  transition: transform 1s;
+}
+
+/** BURGER MENU (unused atm) */
 
 /** nothing really to do with burger menu */
 #page-wrap {
@@ -121,19 +138,34 @@
   display: flex;
   font-size: 1em;
   align-items: center;
-  padding: 0.4em;
-}
-
-.user-login-panel:hover {
+  margin: 0.5em 0em;
+  padding: 0.25em 0.9em;
   border-radius: 0.5em 0.0em 0.0em 0.5em;
-  background: rgba(0,0,0,0.046);
   cursor: pointer;
   transition: background 0.19s;
 }
 
+
+
 .user-login-panel > * {
   margin-left: 0.2em;
 }
+/*
+.user-login-panel.not-logged-in {
+  background: #fff5f5;
+  box-shadow: 0px 0px 1px 1px #fed6d6
+}
+*/
+.user-login-panel:hover { 
+  background: rgba(0,0,0,0.046);
+  
+}
+
+@keyframes glow {
+  from {}
+  to {box-shadow: 0px 0px 2px 1px #d38686}
+}
+
 
 /** ACCESSIBLE? FILE INPUT */
 [type="file"] {

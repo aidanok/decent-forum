@@ -8,12 +8,18 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@types/dompurify": "0.0.33",
     "@types/node": "12.7.8",
     "animate-css-grid": "1.4.1",
+    "article-parser": "3.0.0",
+    "clean-mark": "0.8.0",
     "core-js": "^2.6.5",
+    "dompurify": "2.0.3",
     "moment": "2.24.0",
+    "readability": "0.1.0",
     "register-service-worker": "^1.6.2",
     "remixicon": "2.0.0",
+    "v-tooltip": "2.0.2",
     "vue": "^2.6.10",
     "vue-burger-menu": "2.0.2",
     "vue-moment": "4.0.0",
