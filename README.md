@@ -1,5 +1,16 @@
 # Decent Forum Vue UI.
 
+
+Vue UI for Decent Forum / Decent-a-Forums 
+
+This needs its sibling package, https://github.com/aokisok/decent-forum-api . 
+
+To setup for dev, just clone both packages as sibling folders and everything should work fine including live-reload
+on editing of either project.
+
+With VsCode you can add both folders to a workspace. 
+
+
 ## Project setup
 ```
 npm install
