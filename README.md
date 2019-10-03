@@ -17,7 +17,7 @@ https://arweave.net/XmAbFupu0hT4poTBSNGuwIMGVKTpJwf8unt--dgFPxw#/
 
 NOTE: The UI is quite rough and inconsistently styled at the moment. No component library was used just html / css and the icon font from: https://remixicon.com. 
 
-The idea is that the forum is user themable, so all CSS is done with global, non-mangled class names and most layout is done with CSS grid. You may (will) encounter some display issues in this early version.   
+The idea is that the forum is user themeable, so all CSS is done with global, non-mangled class names and most layout is done with CSS grid. You may (will) encounter some display issues in this early version.   
 
 Eventually each forum or section could specify its own theme, though that would need decent-forum-api to add in support for configurable forums that the creator can configure.  
 
