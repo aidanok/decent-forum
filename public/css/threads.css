@@ -220,7 +220,15 @@
   border: 1px solid rgb(210, 162, 120);
 }
 
+.button-icon {
+  cursor: pointer;
+  transition: opacity 2.5s;
+  opacity: 1.0;
+}
 
+.button-icon-disabled {
+  display:none;
+}
 
 .thread-post-from {
   grid-row: 1 / 2;

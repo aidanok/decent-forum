@@ -37,8 +37,34 @@
       >
         Reply <i class="ri-reply-line"></i>
       </a>
-      <i class="ri-thumb-up-line"></i>
-      <i class="ri-thumb-down-line"></i>
+      <i 
+        @click=upVote 
+        role="button" 
+        v-bind:class="{ 'button-icon-disabled': voting || voted }"
+        v-tooltip="{ 
+          trigger: 'hover', 
+          autoHide: true, 
+          hideOnTargetClick: true, 
+          delay: { show: loggedIn ? 400 : 800, hide: 100 }, 
+          content: upVoteTooltip, 
+          placement: 'bottom',
+        }"
+        class="ri-thumb-up-line button-icon">
+      </i>
+      <i
+        @click=downVote
+        v-tooltip="{ 
+          trigger: 'hover', 
+          autoHide: true, 
+          hideOnTargetClick: true, 
+          delay: { show: loggedIn ? 400 : 800, hide: 100 }, 
+          content: downVoteToolTip, 
+          placement: 'bottom',
+        }"
+        v-bind:class="{ 'button-icon-disabled': voting || voted }"
+        role="button"  
+        class="ri-thumb-down-line button-icon">
+      </i>
     </div>
 
     
@@ -59,7 +85,7 @@
 <script lang="ts">
 import Vue from 'vue'
 
-import { PostTreeNode } from 'decent-forum-api';
+import { PostTreeNode, voteOnPost } from 'decent-forum-api';
 import moment from 'moment';
 import { CurrentUser, SharedState } from '../ui-lib';
 import { scoreByVotesAndTime } from 'decent-forum-api/sorting'
@@ -84,6 +110,27 @@ export default Vue.extend({
     },
     scoreByVotesAndTime(up: number, down: number, t: Date) {
       return scoreByVotesAndTime(up, down, t);
+    },
+    async vote(up: boolean) {
+      if (this.voting || this.voted || !this.shared.user.loggedIn) {
+        return; 
+      }
+      this.voting = true;
+      try {
+        const result = await voteOnPost(this.shared.user.wallet, this.postNode, true, this.shared.tracker);
+        console.log(`Voted succesfully, txId: ${result}`);
+        this.voted = true;
+      } catch (e) {
+        console.error(e);
+        this.voting = false; 
+      }
+    },
+
+    async upVote() {
+      return this.vote(true);
+    },
+    async downVote() {
+      return this.vote(false);
     }
   },
 
@@ -92,11 +139,30 @@ export default Vue.extend({
       return {
         "--post-time": moment(this.postNode.post.date).fromNow(),
       }
-    }
+    },
+    upVoteTooltip: function(): string {
+      return this.shared.user.loggedIn ? 
+        '<small>Up vote the post and give 0.1AR</small>'
+        :
+        'You are not logged in, you cannot vote'
+    },
+
+    downVoteToolTip: function(): string {
+      return this.shared.user.loggedIn ? 
+        '<small>Down vote the post for 0.1AR</small>'
+        :
+        'You are not logged in, you cannot vote'
+    },
+    loggedIn: function(): boolean {
+      return this.shared.user.loggedIn;
+    },
+    
   },
 
   data: () => ({
     replying: false,
+    voted: false,
+    voting: false, // while we wait for assync request
   })
 })
 </script>
