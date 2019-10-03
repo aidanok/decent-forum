@@ -27,6 +27,10 @@
   font-size: 0.9em;
 }
 
+.thread-post-content {
+  white-space: pre-line;
+}
+
 .thread-post-is-root.thread-post-container {
   margin-left: 0em;
 }
@@ -131,7 +135,7 @@
 
 .thread-post-content {
   grid-row: 2 / 3;
-  grid-column: 2 / 3;
+  grid-column: 2 / 4;
   padding: 0.6em 0;
   margin: 0em 1em;
   min-height: 2.4em;
