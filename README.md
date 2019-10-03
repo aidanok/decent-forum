@@ -10,6 +10,10 @@ on editing of either project.
 
 With VsCode you can add both folders to a workspace. 
 
+Current version deployed at 
+
+https://arweave.net/XmAbFupu0hT4poTBSNGuwIMGVKTpJwf8unt--dgFPxw#/
+
 
 NOTE: The UI is quite rough and inconsistently styled at the moment. No component library was used just html / css and the icon font from: https://remixicon.com. 
 
@@ -48,5 +52,3 @@ npm run test
 npm run lint
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
