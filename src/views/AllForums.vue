@@ -30,6 +30,7 @@ import Vue from 'vue';
 import { queryPosts, ForumTreeNode } from 'decent-forum-api';
 import { SharedState } from '../ui-lib';
 import { summarizeForum, ForumSummary } from '../ui-lib/transforms';
+import { scoreByVotesAndTime } from 'decent-forum-api/sorting';
 
 export default Vue.extend({
   
@@ -42,8 +43,15 @@ export default Vue.extend({
 
   computed: {
     summaries: function(): ForumSummary[] | null {
-      return !this.forums ? null : 
-        this.forums.map(x => summarizeForum(x, false))
+      const s = !this.forums ? null : this.forums.map(x => summarizeForum(x, false))
+      if (s) {
+        s.sort((a, b) => {
+          var scoreA = scoreByVotesAndTime(a.votes.upVotes, a.votes.downVotes, a.lastPostTime);
+          var scoreB = scoreByVotesAndTime(b.votes.upVotes, b.votes.downVotes, b.lastPostTime);
+          return scoreB - scoreA;
+        })
+      }
+      return s;
     }
   },
 

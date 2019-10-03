@@ -29,7 +29,7 @@ import Vue from 'vue'
 import { PostTreeNode, CachedForumPost, queryPosts, decodeForumPath } from 'decent-forum-api';
 import { queryThread } from 'decent-forum-api/query/query';
 import { SharedState } from '@/ui-lib';
-import { scoreByVotesAndTime, sortPostNodes } from '../../../decent-forum-api/src/sorting';
+import { scoreByVotesAndTime, sortPostNodes } from 'decent-forum-api/sorting';
 
 export default Vue.extend({
 

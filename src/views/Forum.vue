@@ -51,6 +51,7 @@ import Vue from 'vue';
 import { SharedState } from '@/ui-lib';
 import { queryPosts, ForumTreeNode, encodeForumPath } from 'decent-forum-api';
 import { SimpleForumContents, summarizeForum, simpleForumContents } from '@/ui-lib/transforms';
+import { scoreByVotesAndTime } from 'decent-forum-api/sorting';
 
 export default Vue.extend({
   props: {
@@ -72,7 +73,15 @@ export default Vue.extend({
 
   computed: {
     summarized: function(): SimpleForumContents | null {
-      return this.forumNode && simpleForumContents(this.forumNode);
+      const s = this.forumNode && simpleForumContents(this.forumNode);
+      if (s) {
+        s.threads.sort((a, b) => {
+          var scoreA = scoreByVotesAndTime(a.upVotes, a.downVotes, a.lastPostTime);
+          var scoreB = scoreByVotesAndTime(b.upVotes, b.downVotes, b.lastPostTime);
+          return scoreB - scoreA;
+        })
+      }
+      return s;
     },
 
     encodedPath: function(): string {

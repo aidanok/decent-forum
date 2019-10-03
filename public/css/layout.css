@@ -33,11 +33,10 @@ body {
 
 
 .app-layout {
-  
   height: 95%;
   overflow-x: hidden;
   display: grid; 
-  grid-template-columns: 1fr minmax(100px, 600px) 1fr;
+  grid-template-columns: 1fr minmax(100px, 800px) 1fr;
   grid-template-rows: auto 1fr;
   grid-template-areas: "header-left header-center header-right"
                        "content-left content-center content-right"
@@ -47,6 +46,8 @@ body {
 .content-container {
   grid-row: 2 / 3;
   grid-column: 2 / 3;
+  margin-right: 0.4em;
+  margin-left: 0.4em;
 }
 
 /** APP HEADER */

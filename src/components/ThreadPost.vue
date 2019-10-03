@@ -117,7 +117,7 @@ export default Vue.extend({
       }
       this.voting = true;
       try {
-        const result = await voteOnPost(this.shared.user.wallet, this.postNode, true, this.shared.tracker);
+        const result = await voteOnPost(this.shared.user.wallet, this.postNode, up, this.shared.tracker);
         console.log(`Voted succesfully, txId: ${result}`);
         this.voted = true;
       } catch (e) {
