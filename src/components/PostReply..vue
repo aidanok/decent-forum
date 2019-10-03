@@ -86,9 +86,9 @@ export default Vue.extend({
 
     documentClick(e: any) {
       let el = this.$refs.ourBox as Element;
-      let target = e.target;    
+      let target = e.target;
       console.log(el);
-      if ( el !== target && !el.contains(target)) {
+      if ( el !== target && this.shared.user.loggedIn && !el.contains(target)) {
         console.log('matched');
         if (this.showing) {
           this.$emit('blur', {});
