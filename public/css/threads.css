@@ -20,9 +20,8 @@
    color: rgb(35, 35, 62);
  }
  
-
 .thread-post-container {
-  margin-left: 1.2em;
+  margin-left: calc(var(--post-level) * 2em);
   margin-right: 2.3em;
   font-size: 0.9em;
 }
@@ -31,9 +30,9 @@
   white-space: pre-line;
 }
 
-.thread-post-is-root.thread-post-container {
+/*.thread-post-is-root.thread-post-container {
   margin-left: 0em;
-}
+}*/
 
 .post-reply {
   display: flex;
@@ -77,7 +76,6 @@
   font-size: 1.25em;
 }
 
-
 .thread-post .post-reply {
   grid-column: 1 / 5;
   grid-row: 6 / 5;
@@ -91,7 +89,6 @@
   display: grid;
   grid-template-rows: auto 1fr auto;
   grid-template-columns: auto 1fr auto;
-
   text-align: left;
   border: 1px solid var(--color-border);
   border-radius: 0.37em;
