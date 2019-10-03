@@ -1,8 +1,8 @@
 <template>
   <!-- These css vars DONT get inherited.. boo ! -->
   <div 
-    v-bind:style="{ cssVars: true }" 
-    v-bind:class="{'thread-post-is-root': postNode.isRootPost() }" 
+    :style="{ '--post-level': level }" 
+    v-bind:class="{'thread-post-is-root': level === 0 }" 
     class="thread-post-container">
 
   <div v-bind:class="{ 'thread-post-is-root': postNode.isRootPost() }" class="thread-post">
@@ -101,6 +101,10 @@ export default Vue.extend({
       type: Object as () => SharedState,
       required: true, 
     },
+    level: {
+      type: Number,
+      default: 0,
+    }
   },
 
   methods: {

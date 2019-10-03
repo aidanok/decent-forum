@@ -41,7 +41,7 @@
 }
 
 .forum-path-header a:hover {
-  color: rgb(53, 60, 109);;
+  color: rgb(53, 60, 109);
   border-color: rgb(53, 60, 109);
 }
 
@@ -124,17 +124,17 @@
   text-decoration: none;
 }
 
-.forum-content-page-top-bar a:hover {
+.forum-content-page-top-bar > a:hover {
   box-shadow: 0 0px 5px 0px rgba(0, 0, 0, 0.24);
   background: rgba(228, 230, 242, 0.87);
 }
+
 .forum-content-page-top-bar a i {
   display:none;
   margin-left: 0.64em;
   font-size: .8em;
   color: #444444d1;
 }
-
 
 .post-new a:hover {
   box-shadow: 0 0px 5px 0px rgba(0, 0, 0, 0.24);

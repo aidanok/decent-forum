@@ -4,10 +4,12 @@
       
       <div class="forum-content-page-top-bar">
         <forum-path-header :path=summarized.path></forum-path-header>
+
         <router-link :to="`/post/${encodedPath}`">
           New Thread
           <i class="ri-discuss-fill"></i>
         </router-link>
+
       </div>
       
       <div class="forum-thread-summary-header">

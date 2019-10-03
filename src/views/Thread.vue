@@ -5,12 +5,22 @@
       <forum-path-header :path=path :extraSegment=postTitle></forum-path-header>
     </div>
      
-    <thread-post :postNode=rootNode :shared=shared>
-    </thread-post>
-     <transition-group name="list" tag="div">
-      <thread-post v-for="(n) in flatReplies" :key=n.id :postNode=n :shared=shared>
+    <!-- <thread-post :postNode=rootNode :shared=shared>
+    </thread-post> -->
+     
+     <!-- <transition-group name="fade" tag="div"> -->
+      
+      <thread-post 
+        v-for="(info) in flattened" 
+        :key=info.node.id 
+        :postNode=info.node
+        :level=info.lvl
+        :bad=info.bad
+        :shared=shared>
       </thread-post>
-     </transition-group>
+      
+
+     <!-- </transition-group> -->
     </div>
     <div v-else>
       ...
@@ -30,6 +40,22 @@ import { PostTreeNode, CachedForumPost, queryPosts, decodeForumPath } from 'dece
 import { queryThread } from 'decent-forum-api/query/query';
 import { SharedState } from '@/ui-lib';
 import { scoreByVotesAndTime, sortPostNodes } from 'decent-forum-api/sorting';
+
+function sortPostNodeArray(a: PostTreeNode, b: PostTreeNode) {
+  const votesA = a.getAggregatedVotes();
+  const votesB = b.getAggregatedVotes();
+  const scoreA = scoreByVotesAndTime(votesA.upVotes, votesA.downVotes, a.post.date);
+  const scoreB = scoreByVotesAndTime(votesB.upVotes, votesB.downVotes, b.post.date);
+  return scoreB - scoreA;
+}
+
+type ThreadRow = { 
+  lvl: number, 
+  node: PostTreeNode, 
+  votes: { upVotes: number, downVotes: number },
+  bad: boolean
+  showBad: boolean
+};
 
 export default Vue.extend({
 
@@ -56,7 +82,6 @@ export default Vue.extend({
     console.info(`Querying thread ${this.txId}`);
     const t = Date.now();
     this.rootNode = this.shared.cache.findPostNode(this.txId);
-
     await queryThread(this.txId, 5, this.shared.cache);
     this.rootNode = this.shared.cache.findPostNode(this.txId);
 
@@ -79,22 +104,36 @@ export default Vue.extend({
         :
         [] as string[]
     },
-    flatReplies: function(): PostTreeNode[] {
+
+    flattened: function(): null | (ThreadRow[]) {
       const replies = [] as PostTreeNode[];
+      
+      const flattened: 
+        ThreadRow[] = [];
+      
       if (!this.rootNode) {
-        return replies;
+        return null;
       }
-      const recurse = (n: PostTreeNode) => {
-        Object.values(n.replies).forEach(n => {
-          if (n.isContentFiled()) {
-            replies.push(n);
-          }
-          recurse(n);
-        })
+
+      let currentLevel = 0;
+
+      flattened.push({ bad: false, showBad: false, lvl: currentLevel , node: this.rootNode, votes: this.rootNode.getAggregatedVotes()});
+      let idx = 0
+      while(idx < flattened.length) {
+        const next = flattened[idx];
+        currentLevel++;
+        const sortedReplies = Object.values(next.node.replies).sort(sortPostNodeArray)
+          .map(node => ({ bad: false, showBad: false, lvl: next.lvl + 1, node, votes: node.getAggregatedVotes() }));
+
+        flattened.splice(++idx, 0, ...sortedReplies);
       }
-      recurse(this.rootNode);
-      replies.sort(sortPostNodes);
-      return replies;
+      flattened.forEach(x => {
+        if (x.votes.upVotes - x.votes.downVotes < 0) {
+          x.bad = true;
+        }
+      })
+      console.log(`Sorted Thread`, flattened.map(x => ({ lvl: x.lvl, votes: x.votes.upVotes-x.votes.downVotes })));
+      return flattened;
     }
   }
 
