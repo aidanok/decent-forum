@@ -1,4 +1,4 @@
-# Decent Forum Vue UI.
+# Decent-a-Forums Vue UI.
 
 
 Vue UI for Decent Forum / Decent-a-Forums 
