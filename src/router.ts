@@ -34,9 +34,13 @@ export default new Router({
     }, 
     {
       path: '/forum/:forum',
-      name: 'fourm',
+      name: 'forum',
       component: Forum,
       props: (route) => {
+
+        console.log(route.params.forum)
+        //console.log('decoded', decodeURIComponent(route.params.forum))
+          
         return {
           path: isString(route.params.forum) ? decodeForumPath(route.params.forum) : [],
         }

@@ -7,9 +7,9 @@
 
     <input type="text" v-model="forumName" placeholder="Forum Name">
 
-    <router-link v-if="!validationErrors" :to="`/forum/${forumName}`">
+    <a v-if="!validationErrors" @click.prevent="goToForum">
       Create Forum
-    </router-link>
+    </a>
 
     <router-link 
         v-if="validationErrors"
@@ -38,6 +38,12 @@ export default Vue.extend({
   data: () => ({
     forumName: ''
   }),
+
+  methods: {
+    goToForum() {
+      this.$router.push({ name: 'forum', params: { forum: this.forumName.replace('%', ' ')}});
+    }
+  },
 
   computed: {
     validationErrors: function(): string {
