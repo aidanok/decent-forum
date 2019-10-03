@@ -4,7 +4,7 @@
     :style="{ '--post-level': level }" 
     v-bind:class="{'thread-post-is-root': level === 0 }" 
     class="thread-post-container">
-
+  <div v-if="!bad || showBadPost">
   <div v-bind:class="{ 'thread-post-is-root': postNode.isRootPost() }" class="thread-post">
     
     <div v-if="postNode.isRootPost()" class="thread-post-title">
@@ -80,6 +80,14 @@
     >
     </post-reply>
   </div>
+  <div v-if="bad && !showBadPost">
+    <a class="bad-content-link" role="button" @click=showBad>
+      Post by <wallet-address :address=postNode.post.from></wallet-address> hidden due to bad score
+      Click to show. 
+    </a>
+  </div>
+  </div>
+
 </template>
 
 <script lang="ts">
@@ -104,7 +112,11 @@ export default Vue.extend({
     level: {
       type: Number,
       default: 0,
-    }
+    },
+    bad: {
+      type: Boolean,
+      default: false,
+    }, 
   },
 
   methods: {
@@ -128,6 +140,9 @@ export default Vue.extend({
         console.error(e);
         this.voting = false; 
       }
+    },
+    showBad() {
+      this.showBadPost = true;
     },
 
     async upVote() {
@@ -167,6 +182,7 @@ export default Vue.extend({
     replying: false,
     voted: false,
     voting: false, // while we wait for assync request
+    showBadPost: false,
   })
 })
 </script>

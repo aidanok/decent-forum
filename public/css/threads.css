@@ -30,6 +30,21 @@
   white-space: pre-line;
 }
 
+.bad-content-link {
+  display: block;
+  padding: 0.8em 4em;
+  margin: 0.4em 0.1em;
+  border: 1px dashed #c3a2a27a;
+  color: #8f6b6b;
+  background: #f6f1f1;
+  border-radius: 0.4em;
+  justify-self: center;
+  cursor: pointer;
+}
+.bad-content-link:hover {
+  color: #5f5e66;
+}
+
 /*.thread-post-is-root.thread-post-container {
   margin-left: 0em;
 }*/
