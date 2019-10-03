@@ -42,6 +42,11 @@ export default Vue.extend({
   computed: {
     validationErrors: function(): string {
       return this.forumName.length < 4 ? '- Forum name is too short' : ''
+    },
+    urlSafeName: function(): string {
+      const encoded = encodeURIComponent(this.forumName);
+      console.log(encoded);
+      return encoded;
     }
   }
 })

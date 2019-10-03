@@ -5,7 +5,7 @@
     v-bind:class="{'thread-post-is-root': level === 0 }" 
     class="thread-post-container">
   <div v-if="!bad || showBadPost">
-  <div v-bind:class="{ 'thread-post-is-root': postNode.isRootPost() }" class="thread-post">
+  <div v-bind:class="{ 'thread-post-is-root': level === 0 }" class="thread-post">
     
     <div v-if="postNode.isRootPost()" class="thread-post-title">
       <h3> {{ postNode.post.tags.description }} </h3>

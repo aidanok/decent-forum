@@ -74,7 +74,9 @@ export default Vue.extend({
   methods: {
 
     async post() {
-      
+      if (!this.replyToNode) {
+        throw new Error('Reply to Node is empty');
+      }
       const tags = buildPostTagsForReply(this.replyToNode, { format: 'Plaintext' })
       if (this.shared.user.loggedIn) {
         const id = await postPost(this.shared.user.wallet!, this.content, tags, this.shared.tracker);
