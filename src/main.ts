@@ -11,7 +11,6 @@ import VTooltip from 'v-tooltip'
 Vue.use(VTooltip);
 Vue.use(require('vue-moment'));
 
-
 // Load every component from _common
 const req = require.context('./components/', false, /\.(js|vue)$/i)
 for (const key of req.keys()) {

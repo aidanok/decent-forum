@@ -36,8 +36,8 @@
 <script lang="ts">
 
 import Vue from 'vue'
-import { PostTreeNode, CachedForumPost, queryPosts, decodeForumPath } from 'decent-forum-api';
-import { queryThread } from 'decent-forum-api/query/query';
+import { PostTreeNode, CachedForumPost, decodeForumPath } from 'decent-forum-api';
+import { queryThreadFromRoot } from 'decent-forum-api/query/query-thread';
 import { SharedState } from '@/ui-lib';
 import { scoreByVotesAndTime, sortPostNodes } from 'decent-forum-api/sorting';
 
@@ -82,7 +82,7 @@ export default Vue.extend({
     console.info(`Querying thread ${this.txId}`);
     const t = Date.now();
     this.rootNode = this.shared.cache.findPostNode(this.txId);
-    await queryThread(this.txId, 5, this.shared.cache);
+    await queryThreadFromRoot(this.txId, 5, this.shared.cache);
     this.rootNode = this.shared.cache.findPostNode(this.txId);
 
     console.info(`Got posts in ${(Date.now() - t) / 1000} seconds`);

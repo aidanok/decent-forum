@@ -1,14 +1,21 @@
 <template>
   <!-- These css vars DONT get inherited.. boo ! -->
   <div 
-    :style="{ '--post-level': level }" 
+    :style="{ '--post-level': level}" 
     v-bind:class="{'thread-post-is-root': level === 0 }" 
     class="thread-post-container">
   <div v-if="!bad || showBadPost">
-  <div v-bind:class="{ 'thread-post-is-root': level === 0 }" class="thread-post">
+  <div class="thread-post-edit"> 
+
+  </div>
+  <div class="thread-post" v-bind:class="{ 'is-users-post': isUsersPost }">
     
+    
+    <i role="button" @click="editing = true" class="edit-icon ri-edit-box-line"></i>
+
     <div v-if="postNode.isRootPost()" class="thread-post-title">
-      <h3> {{ postNode.post.tags.description }} </h3>
+      <input v-if="editing" type="text" class="title-edit" v-model="editTitle">
+      <h3 v-else> {{ postNode.post.tags.description }} </h3>
     </div>
 
     <div class="thread-post-time">
@@ -40,7 +47,7 @@
       <i 
         @click=upVote 
         role="button" 
-        v-bind:class="{ 'button-icon-disabled': voting || voted }"
+        v-bind:class="{ 'button-icon-disabled': voting || voted  || isUsersPost }"
         v-tooltip="{ 
           trigger: 'hover', 
           autoHide: true, 
@@ -61,7 +68,7 @@
           content: downVoteToolTip, 
           placement: 'bottom',
         }"
-        v-bind:class="{ 'button-icon-disabled': voting || voted }"
+        v-bind:class="{ 'button-icon-disabled': voting || voted || isUsersPost }"
         role="button"  
         class="ri-thumb-down-line button-icon">
       </i>
@@ -175,7 +182,9 @@ export default Vue.extend({
     loggedIn: function(): boolean {
       return this.shared.user.loggedIn;
     },
-    
+    isUsersPost: function(): boolean {
+      return this.shared.user.loggedIn && (this.shared.user.walletAddress === this.postNode.post.from)
+    }
   },
 
   data: () => ({
@@ -183,6 +192,7 @@ export default Vue.extend({
     voted: false,
     voting: false, // while we wait for assync request
     showBadPost: false,
+    editing: false,
   })
 })
 </script>

@@ -21,13 +21,23 @@
  }
  
 .thread-post-container {
-  margin-left: calc(var(--post-level) * 2em);
+  margin-left: calc(var(--post-level) * 3em);
   margin-right: 2.3em;
   font-size: 0.9em;
 }
 
 .thread-post-content {
   white-space: pre-line;
+}
+
+.thread-post .edit-icon {
+  display: none;
+  grid-row: 2;
+  grid-column: 3;
+  justify-self: flex-end;
+  margin: 0.2em;
+  font-size: 1.4em;
+
 }
 
 .bad-content-link {

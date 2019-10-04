@@ -27,7 +27,7 @@
 <script lang="ts">
 
 import Vue from 'vue';
-import { queryPosts, ForumTreeNode } from 'decent-forum-api';
+import { queryForum, ForumTreeNode } from 'decent-forum-api';
 import { SharedState } from '../ui-lib';
 import { summarizeForum, ForumSummary } from '../ui-lib/transforms';
 import { scoreByVotesAndTime } from 'decent-forum-api/sorting';
@@ -73,7 +73,7 @@ export default Vue.extend({
       this.errored = false; 
       this.forums = null;
       try {
-        const data = await queryPosts([], this.shared.cache);
+        const data = await queryForum([], this.shared.cache);
         this.forums = Object.values(this.shared.cache.forums.children)
         this.loading = false; 
         this.errored = false;

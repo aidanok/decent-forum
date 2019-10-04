@@ -51,7 +51,7 @@
 
 import Vue from 'vue';
 import { SharedState } from '@/ui-lib';
-import { queryPosts, ForumTreeNode, encodeForumPath } from 'decent-forum-api';
+import { queryForum, ForumTreeNode, encodeForumPath } from 'decent-forum-api';
 import { SimpleForumContents, summarizeForum, simpleForumContents } from '@/ui-lib/transforms';
 import { scoreByVotesAndTime } from 'decent-forum-api/sorting';
 
@@ -105,7 +105,7 @@ export default Vue.extend({
 
       console.info(`Loading forum: ${this.path.join(' > ')}`);
       //this.forumNode = this.shared.cache.findForumNode(this.path);
-      await queryPosts(this.path, this.shared.cache, true);
+      await queryForum(this.path, this.shared.cache, true);
       this.forumNode = this.shared.cache.findForumNode(this.path);
       if (!this.forumNode) {
         this.noPosts = true;
