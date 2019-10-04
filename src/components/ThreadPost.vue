@@ -8,12 +8,12 @@
   <div class="thread-post-edit"> 
 
   </div>
-  <div class="thread-post" v-bind:class="{ 'is-users-post': isUsersPost }">
+  <div class="thread-post" v-bind:class="{ 'is-users-post': isUsersPost, 'is-votes-disabled': isVotesDisabled }">
     
     
-    <i role="button" @click="editing = true" class="edit-icon ri-edit-box-line"></i>
+    <i class="thread-post-edit-icon ri-edit-box-line" role="button" @click="editing = true" ></i>
 
-    <div v-if="postNode.isRootPost()" class="thread-post-title">
+    <div class="thread-post-title" v-if="postNode.isRootPost()" >
       <input v-if="editing" type="text" class="title-edit" v-model="editTitle">
       <h3 v-else> {{ postNode.post.tags.description }} </h3>
     </div>
@@ -34,16 +34,9 @@
     <div class="thread-post-footer">
     </div>
 
-    <!-- TODO Make these top level grid items to allow for full customization -->
-    <!-- TODO removee opacity hack and put in a close button or something -->
+      <!-- TODO Make these top level grid items to allow for full customization -->
     <div class="thread-post-vote">
-      <a role="button" 
-        v-bind:style="{ 'opacity': replying ? 0.0 : 1.0 }" 
-        @click="replying = !replying" 
-        class="thread-post-reply-button"
-      >
-        Reply <i class="ri-reply-line"></i>
-      </a>
+      
       <i 
         @click=upVote 
         role="button" 
@@ -74,6 +67,17 @@
       </i>
     </div>
 
+
+    <!-- TODO removee opacity hack and put in a close button or something -->
+    <a role="button" 
+        v-bind:style="{ 'opacity': replying ? 0.0 : 1.0 }" 
+        @click="replying = !replying" 
+        class="thread-post-reply-button"
+      >
+        Reply <i class="ri-reply-line"></i>
+    </a>
+
+  
     
   </div>
     <!-- TODO: keep state on close/re-open -->
@@ -184,6 +188,9 @@ export default Vue.extend({
     },
     isUsersPost: function(): boolean {
       return this.shared.user.loggedIn && (this.shared.user.walletAddress === this.postNode.post.from)
+    },
+    isVotesDisabled: function(): boolean {
+      return this.isUsersPost || this.voted || this.voting;
     }
   },
 
