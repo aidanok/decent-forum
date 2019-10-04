@@ -8,11 +8,29 @@
   <div class="thread-post-edit"> 
 
   </div>
-  <div class="thread-post" v-bind:class="{ 'is-users-post': isUsersPost, 'is-votes-disabled': isVotesDisabled }">
+  <div class="thread-post" 
+    v-bind:class="{ 
+        'is-users-post': isUsersPost,
+        'is-votes-disabled': isVotesDisabled,
+        'is-pending-tx': isPendingTx
+    }">
     
     
     <i class="thread-post-edit-icon ri-edit-box-line" role="button" @click="editing = true" ></i>
+    
+    <i class="thread-post-pending-icon ri-exchange-funds-line"
+      v-tooltip="{ 
+          trigger: 'hover', 
+          autoHide: true, 
+          hideOnTargetClick: true, 
+          delay: { show: 600, hide: 100 }, 
+          content: '<small>Pending inclusion in the next block</br> Will not be seen by other users yet</small>', 
+          placement: 'top',
+        }"
+      >
 
+    </i>
+    
     <div class="thread-post-title" v-if="postNode.isRootPost()" >
       <input v-if="editing" type="text" class="title-edit" v-model="editTitle">
       <h3 v-else> {{ postNode.post.tags.description }} </h3>
@@ -191,6 +209,9 @@ export default Vue.extend({
     },
     isVotesDisabled: function(): boolean {
       return this.isUsersPost || this.voted || this.voting;
+    },
+    isPendingTx: function(): boolean {
+      return this.postNode.isPendingTx
     }
   },
 
