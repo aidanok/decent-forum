@@ -32,7 +32,7 @@
 import Vue from 'vue'
 import { postPost, PostTreeNode, buildPostTags } from 'decent-forum-api';
 import { CurrentUser, LoggedInUser, SharedState } from '../ui-lib';
-import { buildPostTagsForReply } from '../../../decent-forum-api/src/lib/post';
+import { buildPostTagsForReply } from 'decent-forum-api';
 
 export default Vue.extend({
 
