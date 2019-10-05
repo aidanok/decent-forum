@@ -291,7 +291,7 @@ export default Vue.extend({
       return this.shared.user.loggedIn && (this.shared.user.walletAddress === this.currentNode.post.from)
     },
     isVotesDisabled: function(): boolean {
-      return !!(this.isUsersPost || this.voted || this.voting);
+      return !!(this.isUsersPost || this.voted || this.voting || !this.shared.user.loggedIn);
     },
     isPendingTx: function(): boolean {
       return this.currentNode.isPendingTx
