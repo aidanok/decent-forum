@@ -88,7 +88,7 @@
     </div>
 
     <div class="thread-post-content">
-      <span v-if="!isEditing"> {{ content }} </span>
+      <span v-if="!isEditing" v-html="contentLinkified"></span>
       <textarea v-else class="thread-post-content-textarea" v-model="content"></textarea>
       
     </div>
@@ -177,6 +177,7 @@ import moment from 'moment';
 import { CurrentUser, SharedState } from '../ui-lib';
 import { scoreByVotesAndTime } from 'decent-forum-api/sorting'
 import { wrapGrid } from 'animate-css-grid';
+import { DOMPurify, LINK_ONLY_OPTIONS } from '@/ui-lib/dom-purify';
 
 export default Vue.extend({
   props: {
@@ -351,7 +352,16 @@ export default Vue.extend({
       const tn = this.postNode.getOriginalNode(); 
       const sums = [tn, ...tn.edits].map((n, index) => ({ index, date: n.post.date }));
       return sums;
+    },
+
+    /* Match valid URIs and replace them with links, santize them afterwards */
+    contentLinkified: function() {
+      const linkified = this.content.replace(/\w+:(\/?\/?)[^\s]+/mg, (match) => {
+        return `<a href=${match}>${match}</a>`;
+      })
+      return DOMPurify.sanitize(linkified, LINK_ONLY_OPTIONS);
     }
+
   },
 
   created() {
