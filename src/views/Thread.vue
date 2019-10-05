@@ -12,7 +12,7 @@
       
       <thread-post 
         v-for="(info) in flattened" 
-        :key=info.node.id 
+        :key="info.node.id + info.node.editCount()"
         :postNode=info.node
         :level=info.lvl
         :bad=info.bad
@@ -36,8 +36,8 @@
 <script lang="ts">
 
 import Vue from 'vue'
-import { PostTreeNode, CachedForumPost, decodeForumPath } from 'decent-forum-api';
-import { queryThreadFromRoot } from 'decent-forum-api/query/query-thread';
+import { PostTreeNode, decodeForumPath } from 'decent-forum-api';
+import { queryThread } from 'decent-forum-api/query/query-thread';
 import { SharedState } from '@/ui-lib';
 import { scoreByVotesAndTime, sortPostNodes } from 'decent-forum-api/sorting';
 
@@ -81,10 +81,8 @@ export default Vue.extend({
   async created() {
     console.info(`Querying thread ${this.txId}`);
     const t = Date.now();
+    await queryThread(this.txId, this.shared.cache);
     this.rootNode = this.shared.cache.findPostNode(this.txId);
-    await queryThreadFromRoot(this.txId, 5, this.shared.cache);
-    this.rootNode = this.shared.cache.findPostNode(this.txId);
-
     console.info(`Got posts in ${(Date.now() - t) / 1000} seconds`);
   },
 
@@ -95,7 +93,7 @@ export default Vue.extend({
     },
 
     postTitle: function(): string {
-      return this.rootNode ? (this.rootNode.post.tags.description || '') : ''
+      return this.rootNode ? (this.rootNode.getLastestEdit().post.tags.description || '') : ''
     },
 
     forumTitle: function(): string[] {

@@ -63,7 +63,7 @@ export default Vue.extend({
     },
     path: {
       type: Array as () => string[],
-      required: true
+      required:  true
     },
   },
 

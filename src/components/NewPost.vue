@@ -53,7 +53,6 @@ export default Vue.extend({
     async post() {
       if (this.shared.user.loggedIn) {
         const tags = buildPostTags(this.path, { format: 'Plaintext', description: this.title })
-        console.log(tags);
         const txId = await postPost(this.shared.user.wallet!, this.content, tags, this.shared.tracker);
         this.$emit('posted', txId);
       } else {

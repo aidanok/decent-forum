@@ -30,13 +30,11 @@ POST
   grid-template-columns: 1fr auto auto auto auto;
   text-align: left;
   border: 1px solid #e0dfdf;
-  border-radius: 0.47em;
+  border-radius: 0.32em;
   overflow: hidden;
   margin-top: 0.6em;
   transition: height 1s;
- }
-
-
+}
 
 
 /** GRID ITEMS **/
@@ -58,8 +56,7 @@ POST
      them in the DOM tree. and is on-top of them)
   */
   z-index: 0;
-  margin-top: -5px;
-  z-index: 0;
+  z-index: -20;
  
 }
 
@@ -67,10 +64,10 @@ POST
 .thread-post-is-root .thread-post-info {
   background: linear-gradient(
     to left,
-    rgba(141, 179, 179, 0.48) 0%,
-    rgba(141, 179, 179, 0.55) 100%
+    rgba(172, 183, 183, 0.48) 0%,
+    rgba(180, 193, 193, 0.55) 100%
   );
-  box-shadow: inset 0 1px 3px -1px rgba(0, 0, 0, 0.24);
+  box-shadow: inset 0px 0px 2px 1px rgba(180, 174, 195, 0.18);
 }
 
 
@@ -83,18 +80,46 @@ POST
   color: rgb(83, 77, 77);
   z-index: 40;
   text-align: left;
+  display: flex;
+  align-items: center;
 }
+
+
+.thread-post-title-input {
+  border: 0px dashed #00000087;
+  border-radius: 0.3em;
+  background: rgba(0,0,0,0);
+  padding: 0.3em;
+  font-size: 1.15em;
+  cursor: default;
+}
+
+.is-editing .thread-post-title-input {
+  border: 1px dashed rgba(0,0,0,0.3);
+  border-radius: 0.3em;
+  background: rgba(255, 255, 255, 0.81);
+  padding: 0.3em;
+  font-size: 1em;
+  outline: default;
+  cursor: default;
+  height: auto;
+  width: 85%;
+}
+
 
  
 /** POST TIME. ALWAYS TOP RIGHT */
 .thread-post-time {
   grid-row: 1 / 2;
-  grid-column: 6 / 8;
+  grid-column: 8 / 9;
   justify-self: flex-end;
   display: flex;
   align-items: center;
   justify-content: flex-end;
   text-align: right;
+  color: #666;
+  margin-right: 0.4em;
+  font-size: 0.8em;
   /* padding: 0.4em; */
 }
 
@@ -104,8 +129,8 @@ POST
   grid-column: 1 / 2;
   justify-self: flex-start;
   align-self: center;
-  padding: 0.3em;
-  margin-left: 0.2em;
+  margin: 0.4em;
+  color: #666;
 }
 
 .thread-post-from::after {
@@ -126,38 +151,48 @@ POST
 }
 
 
-
 /** MAIN CONTENT **/
 .thread-post-content {
   grid-row: 3 / 4;
-  grid-column: 1 / 8;
-  padding: 0.6em 0;
+  grid-column: 1 / 9;
+  padding-top: 1.2em;
   margin: 0em 1em;
   min-height: 2.4em;
 }
+
 .thread-post-content {
   white-space: pre-line;
 }
 
+.thread-post-content-textarea {
+  padding: 0.5em;
+  /** Width does not take into account padding on parent.. */
+  width: calc(100% - 1em);
+  min-height: 8em;
+  border: 1px dashed rgba(0,0,0,0.3);
+  border-radius: 0.3em;
+}
+
 
 .thread-post-edit-icon {
+  /*display: none;*/
   grid-row: 1 / 2;
-  grid-column: 8 / 9;
-  justify-self: flex-end;
-  margin: 0.2em;
-  font-size: 1.4em;
+  grid-column: 7 / 8;
+  align-self: center;
+  font-size: 1.3em;
+  margin: 0.1em;
+  color: #999;
 }
 
 .thread-post-pending-icon {
   grid-row: 1 / 2;
-  grid-column: 1 / 1;
+  grid-column: 6 / 6;
   align-self: center;
-  justify-self: end;
-  /* Kinda distracting tbh */
+  font-size: 1.3em;
+  margin: 0.1em;
   animation:spin 8s linear infinite;
-  color: #f5b097ab;
+  color: #eca388e0;
   opacity: 0.0;
-  margin-right: 1em;
   z-index: 50;
 }
 .is-pending-tx .thread-post-pending-icon {
@@ -167,7 +202,6 @@ POST
 @keyframes spin { 
   100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } 
 }
-
 
 
 /** FOOTER TOP BORDER  */
@@ -182,7 +216,7 @@ POST
 /** REPLY BUTTON **/
 .thread-post-reply-button {
   grid-row: 4 / 5;
-  grid-column: 4 / 5;
+  grid-column: 4 / 8;
   display: flex;
   align-items: center;
   background: rgba(0, 0, 0, 0);
@@ -194,11 +228,67 @@ POST
   border-radius: 0.4em;
   color: rgb(170, 170, 170);
   margin: 0.45em 0em;
+  padding: 0em 0.3em;
 }
 
-.is-votes-disabled .thread-post-reply-button  {
-  grid-column: 7 / 8; 
+.edit-post-button-bar {
+  grid-column: 1 / 9;
+  grid-row: 4;
+  display: flex;
+  justify-content: flex-end;
+  margin: 0.15em 0.8em;
+  font-size: 1.05em;
 }
+
+.thread-post-save-edit,
+.thread-post-cancel-edit
+{
+  display: flex;
+  align-items: center;
+  background: rgba(0, 0, 0, 0);
+  font-size: 0.9em;
+  border: 1px solid rgba(100, 100, 100, 0.48);
+  transition: transform 0.2s, border 0.2s;
+  padding: 0.38em;
+  min-width: 0;
+  border-radius: 0.4em;
+  color: rgb(170, 170, 170);
+  margin: 0.45em 0em;
+  padding: 0em 0.3em;
+  color: rgba(46, 46, 46, 0.82);
+  padding: 0.4em 1em;
+  justify-content: space-between;
+  font-size: 1em; 
+  margin-left: 0.5em;
+}
+
+.thread-post-save-edit i,
+.thread-post-cancel-edit i {
+  margin-left: 0.3em;
+   
+}
+.thread-post-save-edit:hover,
+.thread-post-cancel-edit:hover {
+  color: rgb(100, 100, 100);
+  border: 1px solid rgb(185, 192, 226);
+  cursor: pointer;
+  box-shadow: 0 0px 3px 0px rgba(0, 0, 0, 0.24);
+}
+
+.thread-post-save-edit:hover {
+  border: 1px solid rgb(185, 226, 191);
+  background: rgba(206, 247, 168, 0.32);
+}
+.thread-post-cancel-edit:hover {
+  border: 1px solid rgb(208, 208, 208);
+  background: rgba(243, 178, 178, 0.09);
+}
+
+
+/*
+.is-votes-disabled .thread-post-reply-button  {
+  grid-column: 5 / 5;
+}*/
 
 .thread-post-reply-button > * {
   margin-left: 0.3em;
@@ -231,18 +321,17 @@ POST
 .thread-post-vote {
   display: flex;
   grid-row: 4 / 5;
-  grid-column: 7 / 9;
+  grid-column: 8 / 9;
   margin: 0.45em 1em;
-  padding: 0.12em;
-  justify-self: flex-end;
-  justify-content: flex-end;
+  padding: 0.17em;
+  justify-content: space-around;
   align-items: center;
   color: rgb(170, 170, 170);
 }
 
 .thread-post-vote .ri-thumb-up-line,
 .thread-post-vote .ri-thumb-down-line {
-  margin-left: 0.87em;
+  margin-left: 0.13em;
   border: 1px solid rgba(0, 0, 0, 0.001);
   border-radius: 0.4em;
   transition: transform 0.2s, border 0.5s;
@@ -263,22 +352,31 @@ POST
   transform: scale3d(1.12, 1.12, 1.12);
 }
 
+.is-votes-disabled.thread-post-vote .ri-thumb-up-line:hover {
+  color: unset;
+  border: 1px solid rgba(128, 210, 120,0);
+  transform: scale3d(1, 1, 1);
+}
+
+
+
 .thread-post-vote .ri-thumb-down-line:hover {
   color: rgb(100, 100, 100);
   border: 1px solid rgb(210, 162, 120);
 }
+
+.is-votes-disabled.thread-post-vote  .ri-thumb-down-line:hover {
+  color: unset;
+  border: 1px solid rgba(0,0,0,0);
+}
+
+
 
 .button-icon {
   cursor: pointer;
   transition: opacity 2.5s;
   opacity: 1.0;
 }
-
-.button-icon-disabled {
-  display:none;
-}
-
-
 
 
 .thread-post .root-post h4 {
@@ -339,16 +437,16 @@ POST
 /** BAD CONTENT DIV - REPLACES ENTIRE POST **/
 .bad-content-link {
   display: block;
-  padding: 0.8em 4em;
+  padding: 0.34em 4em;
   margin: 0.4em 0.1em;
-  border: 1px dashed #c3a2a2;
-  color: #8f6b6b;
-  background: #f6f1f1;
+  border: 1px dashed #c3a2a240;
+  color: #8f6b6b82;
+  background: #f6f1f15c;
   border-radius: 0.4em;
   justify-self: center;
   cursor: pointer;
 }
 
 .bad-content-link:hover {
-  color: #5f5e66;
+  color: #5f5e66cc;
 }

@@ -35,10 +35,7 @@ export default Vue.extend({
       default: '',
     }
   },
-  created() {
-    console.log('FORUM');
-    console.log(this.path);
-  },
+  
   methods: {
     encodedPathFor(idx: number) {
       return encodeForumPath(this.path.slice(0, idx+1));

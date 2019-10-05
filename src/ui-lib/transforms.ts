@@ -61,8 +61,10 @@ export function summarizeThread(id: string, rootNode: PostTreeNode) {
   const lasPostTime = findMaxTimeInTree(rootNode);
   return {
     id,
+    // Key is a unique key that changes when the data changes.
+    key: rootNode.getLastestEdit().id + lasPostTime.getTime.toString(),
     referenceTo: '', // string to thumbnail or link, prob should be object.
-    description: rootNode.latestEdit().post.tags.description || '<untitled>',
+    description: rootNode.getLastestEdit().post.tags.description || '<untitled>',
     from: rootNode.post.from,
     lastPostTime: lasPostTime,
     upVotes: rootNode.post.upVotes,
@@ -143,7 +145,7 @@ function findMaxTimeInTree(node: PostTreeNode) {
   let n = node; 
   let t = Number.NEGATIVE_INFINITY;
   const recurse = (n: PostTreeNode) => {
-    t = Math.max(n.latestEdit().post.date.getTime(), t);
+    t = Math.max(n.getLastestEdit().post.date.getTime(), t);
     Object.values(n.replies).forEach(recurse);
   }
   recurse(n);

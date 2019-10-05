@@ -12,60 +12,66 @@
     v-bind:class="{ 
         'is-users-post': isUsersPost,
         'is-votes-disabled': isVotesDisabled,
-        'is-pending-tx': isPendingTx
+        'is-pending-tx': isPendingTx,
+        'is-editing': isEditing
     }">
     
     
-    <i class="thread-post-edit-icon ri-edit-box-line" role="button" @click="editing = true" ></i>
+    <i v-if="!isEditing && isUsersPost" class="thread-post-edit-icon ri-edit-box-line" role="button" @click="isEditing = !isEditing" ></i>
     
-    <i class="thread-post-pending-icon ri-exchange-funds-line"
+    <i v-if="!isEditing" class="thread-post-pending-icon ri-exchange-funds-line"
       v-tooltip="{ 
           trigger: 'hover', 
-          autoHide: true, 
+          autoHide: true,
           hideOnTargetClick: true, 
           delay: { show: 600, hide: 100 }, 
-          content: '<small>Pending inclusion in the next block</br> Will not be seen by other users yet</small>', 
+          content: '<small>Waiting to be mined</br> Will not be seen by other users yet</small>', 
           placement: 'top',
         }"
       >
-
     </i>
     
-    <div class="thread-post-title" v-if="postNode.isRootPost()" >
-      <input v-if="editing" type="text" class="title-edit" v-model="editTitle">
-      <h3 v-else> {{ postNode.post.tags.description }} </h3>
+    <div class="thread-post-title" v-if="currentNode.isRootPost()" >
+      <input 
+        type="text" 
+        class="thread-post-title-input" 
+        v-model="description"
+        :disabled="!isEditing"
+      >
+      <!-- <h3 v-else> {{ currentNode.post.tags.description }} </h3> -->
     </div>
 
     <div class="thread-post-time">
-      {{ postNode.post.date | moment('from') }}
+      {{ currentNode.post.date | moment('from') }}
     </div>
 
-    <wallet-address class="thread-post-from" :address=postNode.post.from></wallet-address>
+    <wallet-address class="thread-post-from" :address=currentNode.post.from></wallet-address>
     
     <div class="thread-post-info">
     </div>
 
     <div class="thread-post-content">
-      {{ postNode.post.content }}
+      <span v-if="!isEditing"> {{ content }} </span>
+      <textarea v-else class="thread-post-content-textarea" v-model="content"></textarea>
+      
     </div>
 
     <div class="thread-post-footer">
     </div>
 
       <!-- TODO Make these top level grid items to allow for full customization -->
-    <div class="thread-post-vote">
+    <div v-if="!isEditing" v-bind:class="{ 'is-votes-disabled': isVotesDisabled }" class="thread-post-vote">
       
       <i 
         @click=upVote 
         role="button" 
-        v-bind:class="{ 'button-icon-disabled': voting || voted  || isUsersPost }"
         v-tooltip="{ 
           trigger: 'hover', 
           autoHide: true, 
           hideOnTargetClick: true, 
-          delay: { show: loggedIn ? 400 : 800, hide: 100 }, 
+          delay: { show: isVotesDisabled ? 800 : 400, hide: 100 }, 
           content: upVoteTooltip, 
-          placement: 'bottom',
+          placement: 'top',
         }"
         class="ri-thumb-up-line button-icon">
       </i>
@@ -75,43 +81,50 @@
           trigger: 'hover', 
           autoHide: true, 
           hideOnTargetClick: true, 
-          delay: { show: loggedIn ? 400 : 800, hide: 100 }, 
+          delay: { show: isVotesDisabled ? 800 : 400, hide: 100 }, 
           content: downVoteToolTip, 
-          placement: 'bottom',
+          placement: 'top',
         }"
-        v-bind:class="{ 'button-icon-disabled': voting || voted || isUsersPost }"
+       
         role="button"  
         class="ri-thumb-down-line button-icon">
       </i>
     </div>
 
 
-    <!-- TODO removee opacity hack and put in a close button or something -->
     <a role="button" 
-        v-bind:style="{ 'opacity': replying ? 0.0 : 1.0 }" 
-        @click="replying = !replying" 
+        v-if="!isReplying && !isEditing"
+        @click="isReplying = !isReplying" 
         class="thread-post-reply-button"
       >
         Reply <i class="ri-reply-line"></i>
     </a>
 
-  
+    <div v-if="isEditing"  class="edit-post-button-bar">
+      <a role="button" @click="cancelEdit" class="thread-post-cancel-edit">
+        Cancel<i class="ri-close-circle-line"></i>
+      </a>
+
+      <a vrole="button" @click="saveEdit" class="thread-post-save-edit">
+        Save Edit<i class="ri-magic-line"></i>
+      </a>
+    </div>
     
   </div>
     <!-- TODO: keep state on close/re-open -->
     <post-reply 
-      v-if="replying" 
-      :replyToNode="postNode" 
+      v-if="isReplying" 
+      :replyToNode="currentNode" 
       :shared="shared" 
-      :showing="replying"
-      @blur="replying = false"
-      @posted-reply=postedReply
+      :showing="isReplying"
+      @blur="isReplying = false"
+      @posted-reply=onPostedReply
     >
     </post-reply>
   </div>
   <div v-if="bad && !showBadPost">
     <a class="bad-content-link" role="button" @click=showBad>
-      Post by <wallet-address :address=postNode.post.from></wallet-address> hidden due to bad score
+      Post by <wallet-address :address=currentNode.post.from></wallet-address> hidden due to bad score
       Click to show. 
     </a>
   </div>
@@ -122,7 +135,7 @@
 <script lang="ts">
 import Vue from 'vue'
 
-import { PostTreeNode, voteOnPost } from 'decent-forum-api';
+import { PostTreeNode, voteOnPost, buildPostTagsForEdit, postPost } from 'decent-forum-api';
 import moment from 'moment';
 import { CurrentUser, SharedState } from '../ui-lib';
 import { scoreByVotesAndTime } from 'decent-forum-api/sorting'
@@ -149,20 +162,72 @@ export default Vue.extend({
   },
 
   methods: {
-    postedReply(id: string) {
-      this.replying = false;
+    onPostedReply(id: string) {
+      this.isReplying = false;
       this.$emit('posted-reply', id);
     },
     scoreByVotesAndTime(up: number, down: number, t: Date) {
       return scoreByVotesAndTime(up, down, t);
     },
-    async vote(up: boolean) {
-      if (this.voting || this.voted || !this.shared.user.loggedIn) {
+
+    cancelEdit() {
+      this.content = this.currentNode.post.content || '';
+      this.description = this.currentNode.post.tags.description || '';
+      this.isEditing = false;
+    },
+
+    async saveEdit() {
+      if (this.isSavingEdit) {
         return; 
+      }
+      console.log('SAVING EDIT');
+       console.log('NODE EDIT COUNT:' + this.postNode.editCount())
+      this.isSavingEdit = true;
+      try {
+        // make tags, copy description tag (title) 
+        console.log('IHHJDFDFD?')
+        const postTags = buildPostTagsForEdit(this.currentNode, { description: this.description });
+        console.log(postTags);
+        if (this.shared.user.loggedIn) {
+          const id = await postPost(this.shared.user.wallet, this.content, postTags, this.shared.tracker);
+          console.log(`Posted edit, id: ${id}`);
+        } else {
+          throw new Error('Not logged in.');
+        }
+      } catch (e) {
+        // do somthing to alert the user?! 
+        console.error(e);
+        console.log(`CAUGHT ERROR SAVING EDIT`)
+        this.isSavingEdit = false; 
+        return; 
+      }
+      this.isSavingEdit = false; 
+      this.isEditing = false; 
+      
+      console.log('NODE EDIT COUNT:' + this.postNode.editCount())
+      // let vue update
+      await Vue.nextTick();
+       console.log('1 NODE EDIT COUNT:' + this.postNode.editCount())
+      this.currentEdit = this.postNode.editCount() - 1;
+      // and again 
+      await Vue.nextTick();
+      console.log('2 NODE EDIT COUNT:' + this.postNode.editCount())
+      await Vue.nextTick();
+      console.log('3 NODE EDIT COUNT:' + this.postNode.editCount())
+      this.copyNodeToModel();
+      
+    },
+
+    async vote(up: boolean) {
+      if (this.isVotesDisabled) {
+        return;
       }
       this.voting = true;
       try {
-        const result = await voteOnPost(this.shared.user.wallet, this.postNode, up, this.shared.tracker);
+        // This is just so user.wallet typechecks witj an any case. isVotesDisabled verifys the user is logged in.
+        if (!this.shared.user.loggedIn) { throw Error('isVotesDisable is broken') }
+
+        const result = await voteOnPost(this.shared.user.wallet, this.currentNode, up, this.shared.tracker);
         console.log(`Voted succesfully, txId: ${result}`);
         this.voted = true;
       } catch (e) {
@@ -179,48 +244,82 @@ export default Vue.extend({
     },
     async downVote() {
       return this.vote(false);
+    }, 
+
+    copyNodeToModel() {
+      this.content = this.currentNode.post.content || '<no-content>';
+      this.description = this.currentNode.post.tags.description || '';
     }
   },
 
   computed: {
     cssVars: function (): Record<string, any> {
       return {
-        "--post-time": moment(this.postNode.post.date).fromNow(),
+        "--post-time": moment(this.currentNode.post.date).fromNow(),
       }
     },
     upVoteTooltip: function(): string {
-      return this.shared.user.loggedIn ? 
-        '<small>Up vote the post and give 0.1AR</small>'
-        :
-        'You are not logged in, you cannot vote'
+      if (!this.shared.user.loggedIn) {
+        return 'You are not logged in'
+      }
+      if (this.voting || this.voted) {
+        return 'You already voted on this post'
+      }
+      if (this.isUsersPost) {
+        return 'You cannot vote on your own post'
+      }
+      return '<small>Up vote the post and give 0.1AR</small>'
     },
 
     downVoteToolTip: function(): string {
-      return this.shared.user.loggedIn ? 
-        '<small>Down vote the post for 0.1AR</small>'
-        :
-        'You are not logged in, you cannot vote'
+      if (!this.shared.user.loggedIn) {
+        return 'You are not logged in'
+      }
+      if (this.voting || this.voted) {
+        return 'You already voted on this post'
+      }
+      if (this.isUsersPost) {
+        return 'You cannot vote on your own post'
+      }
+
+      return '<small>Down vote the post for 0.1AR</small>'
     },
     loggedIn: function(): boolean {
       return this.shared.user.loggedIn;
     },
     isUsersPost: function(): boolean {
-      return this.shared.user.loggedIn && (this.shared.user.walletAddress === this.postNode.post.from)
+      return this.shared.user.loggedIn && (this.shared.user.walletAddress === this.currentNode.post.from)
     },
     isVotesDisabled: function(): boolean {
-      return this.isUsersPost || this.voted || this.voting;
+      return !!(this.isUsersPost || this.voted || this.voting);
     },
     isPendingTx: function(): boolean {
-      return this.postNode.isPendingTx
+      return this.currentNode.isPendingTx
+    },
+    
+    currentNode(): PostTreeNode {
+      return this.postNode.getEdit(this.currentEdit);
+    }
+  },
+
+  created() {
+    this.currentEdit = this.postNode.editCount();
+    this.copyNodeToModel();
+    if (this.shared.user.loggedIn) {
+      this.voted = this.currentNode.voters.indexOf(this.shared.user.walletAddress) !== -1;
     }
   },
 
   data: () => ({
-    replying: false,
+    isReplying: false,
     voted: false,
     voting: false, // while we wait for assync request
     showBadPost: false,
-    editing: false,
+    isEditing: false,
+    description: '',
+    content: '',
+    currentEdit: 0,
+    isSavingEdit: false,
   })
 })
 </script>

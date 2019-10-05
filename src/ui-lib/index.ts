@@ -44,13 +44,17 @@ export type CurrentUser = LoggedInUser | AnonymouUser;
  * We initialize shared state here as a singleton, 
  * this is really just for live-reload, as all these
  * components get reloaded otherwise if we change the App 
- * root component 
+ * root component.
+ * 
  */
 
-let sharedState: SharedState
+
 
 export function getSharedState() {
-  
+
+  let sharedState: SharedState = (window as any).___df_SsS 
+
+
   if (!sharedState) {
     const cache = new ForumCache();
     const blockWatcher = new BlockWatcher();
@@ -64,7 +68,8 @@ export function getSharedState() {
       contentWatcher,
     }
   }
+
+  (window as any).___df_SsS = sharedState;
   return sharedState;
 }
 
-getSharedState(); // init.
