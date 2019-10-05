@@ -13,8 +13,10 @@
     
     <span v-if="extraSegment || index !== path.length - 1" class="forum-path-header-seperator">
     </span>
-    
-    <span v-if="extraSegment">{{extraSegment}}</span>
+    </span>
+
+    <span v-if="extraSegment">
+      {{extraSegment}}
     </span>
     
   </div>
@@ -23,7 +25,7 @@
 <script lang="ts">
 
 import Vue from 'vue'
-import { encodeForumPath } from '../../../decent-forum-api/src'
+import { encodeForumPath } from 'decent-forum-api'
 export default Vue.extend({
   props: {
     path: { 
