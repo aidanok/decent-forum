@@ -51,8 +51,6 @@ export default Vue.extend({
         const opts: PostTags = {
           format: 'Plaintext',
           description: this.title,
-          replyTo: this.replyTo,
-          editOf: this.editOf,
         }
         const tags = buildPostTags(decodeForumPath(this.forum), opts)
         const txId = await postPost(this.shared.user.wallet, this.content, tags, this.shared.tracker);

@@ -1,5 +1,5 @@
 <template>
-  <router-link class="forum-summary" :to="`/forum/${summary.encodedPath}`">
+  <router-link class="forum-summary" :to="`/forum/${encodeURIComponent(summary.encodedPath)}`">
     <div class="forum-summary-forum-name"> {{ summary.path | displayForumPath }} </div>
     <div class="forum-summary-forum-posts"> {{ summary.posts }} Posts </div>
     <div class="forum-summary-forum-last-time"> {{ summary.lastPostTime | moment('from') }} </div>
