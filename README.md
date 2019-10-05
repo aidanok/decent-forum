@@ -8,22 +8,28 @@ This needs its sibling package, https://github.com/aokisok/decent-forum-api .
 To setup for dev, just clone both packages as sibling folders and everything should work fine including live-reload
 on editing of either project.
 
-With VsCode you can add both folders to a workspace. 
+With Vscode you can add both folders to a workspace. 
 
 Current version deployed at 
 
-https://arweave.net/uaMoskCS35HYSrWZynRGryw4Vt9hneAkqD5i86DZiwo
+https://arweave.net/r-PMu3JZWpv7gHulgwonPjOBGjLcIdE1CU8_pLjEsmo
 
 
 NOTE: The UI is quite rough and inconsistently styled at the moment. No component library was used just html / css and the icon font from: https://remixicon.com. 
 
-The idea is that the forum is user themeable, so all CSS is done with global, non-mangled class names and most layout is done with CSS grid. You may (will) encounter some display issues in this early version. 
+The idea is that the forum is user themeable, so all CSS is done with global, non-mangled class names and most layout is done with CSS grid. 
 
 Eventually each forum or section could specify its own theme.
 
-NOTE2: Some features that are supported in decent-forum-api are not surfaced fully in the UI yet: 
+Practically, the CSS needs to be organized a bit better with consistent naming and probably some tweaks
+to how the DOM is structured should be done. CSS Grid and CSS Custom Variables makes for extremely 
+customizable themes and layouts, and they are supported in 92% of browsers now, IE11 is the only noteable holdout.
+ 
+
+Some features that are supported in decent-forum-api are not surfaced fully in the UI yet: 
  - Nested forums, any amount of levels deep, ex:  Foo > Bar > Whiz > MyForum
- - Notifcations/indications when your post has been mined into a block and is live.
+
+ You can actually use them, by navigating to /forum/Foo_Bar_Whiz_MyForum, where you can post and the forum will be created, but they wont show up in the all-forums list at the moment 
 
 
 ## Project setup
@@ -40,14 +46,3 @@ npm run serve
 ```
 npm run build
 ```
-
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
