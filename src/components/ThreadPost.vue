@@ -27,9 +27,12 @@
           delay: { show: 600, hide: 100 }, 
           content: '<small>Waiting to be mined</br> Will not be seen by other users yet</small>', 
           placement: 'top',
-        }"
-      >
+        }">
     </i>
+
+    <!-- <div class="thread-post-edit-count"> 
+      {{ editCount }} revisions <i class="ri-arrow-down-s-fill"></i>
+    </div> -->
     
     <div class="thread-post-title" v-if="currentNode.isRootPost()" >
       <input 
@@ -42,7 +45,29 @@
     </div>
 
     <div class="thread-post-time">
-      {{ currentNode.post.date | moment('from') }}
+      <span v-if="editCount === 1">{{ currentNode.post.date | moment('from') }}</span>
+
+      <v-popover v-else placement="bottom" popoverInnerClass="thread-post-edits-dropdown-popover">
+        
+        <div class="thread-post-time-with-edits">
+          <span>{{ currentNode.post.date | moment('from') }}</span>
+          <i v-if="editCount > 1" class="ri-arrow-down-s-fill"></i> 
+        </div>
+
+        <div slot="popover">
+          <div class="thread-post-edits-dropdown" v-for="(edits, index) in editSummaries" :key="index"> 
+            <a 
+              class="thread-post-edit-summary" 
+              @click="currentEdit = index"
+              v-close-popover
+              role="button"> 
+              Edit {{ edits.date | moment("from") }}
+            </a>
+          </div>
+
+        </div>
+      </v-popover>
+      
     </div>
 
     <wallet-address class="thread-post-from" :address=currentNode.post.from></wallet-address>
@@ -252,6 +277,12 @@ export default Vue.extend({
     }
   },
 
+  watch: {
+    'currentEdit': function(val) {
+      this.copyNodeToModel();
+    }
+  },
+
   computed: {
     cssVars: function (): Record<string, any> {
       return {
@@ -299,6 +330,15 @@ export default Vue.extend({
     
     currentNode(): PostTreeNode {
       return this.postNode.getEdit(this.currentEdit);
+    }, 
+    editCount(): number {
+      return this.postNode.getOriginalNode().editCount();
+    }, 
+
+    editSummaries(): { index: number, date: Date }[] {
+      const tn = this.postNode.getOriginalNode(); 
+      const sums = [tn, ...tn.edits].map((n, index) => ({ index, date: n.post.date }));
+      return sums;
     }
   },
 
