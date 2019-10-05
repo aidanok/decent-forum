@@ -182,6 +182,7 @@ POST
   font-size: 1.3em;
   margin: 0.1em;
   color: #999;
+  cursor: pointer;
 }
 
 .thread-post-pending-icon {

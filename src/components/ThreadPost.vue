@@ -17,7 +17,19 @@
     }">
     
     
-    <i v-if="!isEditing && isUsersPost" class="thread-post-edit-icon ri-edit-box-line" role="button" @click="isEditing = !isEditing" ></i>
+    <i v-if="!isEditing && isUsersPost" 
+      class="thread-post-edit-icon ri-edit-box-line" 
+      role="button" @click="isEditing = !isEditing" 
+      v-tooltip="{ 
+          trigger: 'hover', 
+          autoHide: true,
+          hideOnTargetClick: true, 
+          delay: { show: 400, hide: 100 }, 
+          content: '<small>Edit this post</small>', 
+          placement: 'top',
+        }"
+      >
+    </i>
     
     <i v-if="!isEditing" class="thread-post-pending-icon ri-exchange-funds-line"
       v-tooltip="{ 
@@ -45,13 +57,13 @@
     </div>
 
     <div class="thread-post-time">
-      <span v-if="editCount === 1">{{ currentNode.post.date | moment('from') }}</span>
+      <span v-if="editCount === 0">{{ currentNode.post.date | moment('from') }}</span>
 
-      <v-popover v-else placement="bottom" popoverInnerClass="thread-post-edits-dropdown-popover">
+      <v-popover v-if="editCount > 0" placement="bottom" popoverInnerClass="thread-post-edits-dropdown-popover">
         
         <div class="thread-post-time-with-edits">
           <span>{{ currentNode.post.date | moment('from') }}</span>
-          <i v-if="editCount > 1" class="ri-arrow-down-s-fill"></i> 
+          <i class="ri-arrow-down-s-fill"></i> 
         </div>
 
         <div slot="popover">

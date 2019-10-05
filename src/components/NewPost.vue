@@ -58,6 +58,7 @@ export default Vue.extend({
       } else {
         throw new Error('post() called when user not logged in');
       }
+      
     }
   },
 

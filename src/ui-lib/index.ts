@@ -50,26 +50,18 @@ export type CurrentUser = LoggedInUser | AnonymouUser;
 
 
 
-export function getSharedState() {
+export function getSharedState(): SharedState {
 
-  let sharedState: SharedState = (window as any).___df_SsS 
-
-
-  if (!sharedState) {
     const cache = new ForumCache();
     const blockWatcher = new BlockWatcher();
     const tracker = new PendingTxTracker(cache, blockWatcher);
     const contentWatcher = new ContentWatcher(blockWatcher);
-    sharedState = {
+    return {
       user: { loggedIn: false },
       cache, 
       tracker,
       blockWatcher,
       contentWatcher,
     }
-  }
-
-  (window as any).___df_SsS = sharedState;
-  return sharedState;
 }
 

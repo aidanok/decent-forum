@@ -23,8 +23,8 @@ export default Vue.extend({
   },
 
   methods: {
-    threadPosted: function() {
-      this.$router.go(-1);
+    threadPosted: function(txId: string) {
+      this.$router.push(`/thread/${txId}`);
     }
   }
 })

@@ -41,7 +41,7 @@
       <p>
         You can post the first thread and create the forum
       </p>
-      <new-post :path=path :shared=shared @posted="firstPosted"></new-post>
+      <new-post :path=path :shared=shared @posted="onFirstPosted"></new-post>
     </div>
     <div v-if="!noPosts && !summarized" class="loading-centered lds-dual-ring"></div>
   </div>
@@ -111,7 +111,7 @@ export default Vue.extend({
         this.noPosts = true;
       }
     },
-    firstPosted() {
+    onFirstPosted(txId: string) {
       this.loadForum();
     }
   },
