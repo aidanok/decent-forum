@@ -5,7 +5,7 @@
       <div class="forum-content-page-top-bar">
         <forum-path-header :path=summarized.path></forum-path-header>
 
-        <router-link :to="`/post/${encodedPath}`">
+        <router-link :to="{ name: 'post', params: { forum: encodedPath }}">
           New Thread
           <i class="ri-discuss-fill"></i>
         </router-link>
@@ -20,7 +20,7 @@
       </div>
 
       <router-link
-        :to="`/thread/${thread.id}`" 
+        :to="{ name:'thread' , params: { txId: thread.id } }" 
         class="forum-thread-summary" 
         v-for="(thread, index) in summarized.threads" 
         :key=index
@@ -104,12 +104,23 @@ export default Vue.extend({
       this.noPosts = false;
 
       console.info(`Loading forum: ${this.path.join(' > ')}`);
-      //this.forumNode = this.shared.cache.findForumNode(this.path);
-      await queryForum(this.path, this.shared.cache, true);
+      await queryForum(this.path, this.shared.cache);
+
       this.forumNode = this.shared.cache.findForumNode(this.path);
+
+       
+      
       if (!this.forumNode) {
         this.noPosts = true;
+        return; 
       }
+
+      console.log(`Forum dump:`)
+      Object.keys(this.forumNode.posts).forEach(txId => {
+        const pn = this.forumNode!.posts[txId];
+        console.log(`${txId.substr(0,4)}`)
+        console.log(pn.post.tags);
+      })
     },
     onFirstPosted(txId: string) {
       this.loadForum();

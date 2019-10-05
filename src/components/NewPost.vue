@@ -53,6 +53,8 @@ export default Vue.extend({
     async post() {
       if (this.shared.user.loggedIn) {
         const tags = buildPostTags(this.path, { format: 'Plaintext', description: this.title })
+        console.log(tags);
+        console.log(`^^ Posting New Thread ^^`);
         const txId = await postPost(this.shared.user.wallet!, this.content, tags, this.shared.tracker);
         this.$emit('posted', txId);
       } else {
@@ -74,7 +76,7 @@ export default Vue.extend({
       if (this.content.length < 1) {
         errors.push('- Ths content of this post too short!');
       }
-      if (this.title.length < 3) {
+      if (this.title.length < 2) {
         errors.push('- The title of this post too short!')
       }
       return errors.join('<br>');

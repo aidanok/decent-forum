@@ -7,7 +7,7 @@
 
     <span v-for="(segment, index) in path" :key="index">
       <router-link 
-        :to="`/forum/${encodedPathFor(index)}`"
+        :to="{ name: 'forum', params: { forum: encodedPathFor(index) } }"
         :key="index">
         {{segment}}</router-link>
     

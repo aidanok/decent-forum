@@ -41,7 +41,7 @@ export default Vue.extend({
 
   methods: {
     goToForum() {
-      this.$router.push({ name: 'forum', params: { forum: this.forumName.replace('%', ' ')}});
+      this.$router.push({ name: 'forum', params: { forum: this.urlSafeName } });
     }
   },
 
@@ -50,9 +50,11 @@ export default Vue.extend({
       return this.forumName.length < 4 ? '- Forum name is too short' : ''
     },
     urlSafeName: function(): string {
-      const encoded = encodeURIComponent(this.forumName);
-      console.log(encoded);
-      return encoded;
+      // VUE BREAKS WITH % in the URL  if its past the # :/ 
+      // so replace them with unicode 'FULLWIDTH PERCENT as a workaround 
+      // Copy so the UI doesnt update
+      const p = this.forumName; 
+      return p.replace('%', '\uFF05');
     }
   }
 })
