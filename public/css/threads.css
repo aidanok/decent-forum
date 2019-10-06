@@ -162,7 +162,8 @@ POST
 }
 
 .thread-post-content {
-  white-space: pre;
+  white-space: pre-wrap;
+  
 }
 
 .thread-post-content-textarea {
