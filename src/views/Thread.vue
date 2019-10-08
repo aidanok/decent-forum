@@ -22,9 +22,8 @@
 
      <!-- </transition-group> -->
     </div>
-    <div v-else>
-      ...
-    </div>
+    <loading v-else>
+    </loading>
   </div>
   
 </template>

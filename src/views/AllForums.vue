@@ -18,7 +18,7 @@
       </forum-summary>
     </div>
     
-    <div v-if="loading" class="loading-centered lds-dual-ring"></div>
+    <loading v-if="loading"></loading>
     <p v-if="errored" class="loading-errored"> {{ errored }} </p>
 
   </div>

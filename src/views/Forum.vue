@@ -43,7 +43,7 @@
       </p>
       <new-post :path=path :shared=shared @posted="onFirstPosted"></new-post>
     </div>
-    <div v-if="!noPosts && !summarized" class="loading-centered lds-dual-ring"></div>
+    <loading v-if="!noPosts && !summarized"></loading>
   </div>
 </template>
 

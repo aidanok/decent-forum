@@ -52,32 +52,19 @@
     
     color: rgb(223, 223, 223);
     animation: 
-      /*speedlines 
-      var(--anim-duration) 
-      cubic-bezier(0.075, 0.82, 0.165, 1)
-      calc(var(--pos-pct-x) * var(--anim-duration) * 1.3)
-      infinite
-      forwards*/
-
       loading-wave 
       var(--anim-duration) 
       cubic-bezier(0.075, 0.82, 0.165, 1)
       infinite
       calc(var(--anim-duration) * (1 - var(--pos-pct-x)) * 1)
-      ;
-
-      /*loading-scale
-      var(--anim-duration) 
-      calc(var(--anim-duration) * (1 - var(--pos-pct-x)) * 1)
-      infinite
-      forwards*/
-       
+      ; 
   }
 
 
   .getting-you-there {
     font-size: 0.25em;
     color:rgb(117, 117, 117);
+    font-weight: bold;
   }
 
 
@@ -101,11 +88,11 @@
   }
 
   @keyframes loading-wave {
-    0% {transform:translate(0px, 0px) }
-    25% {transform:translate(0px, 7px) }
-    50% {transform:translate(0px, 0px) }
-    75% {transform:translate(0px, -7px) }
-    100% {transform:translate(0px, 0px) }
+    0% {transform:translate(0px, 0px) scale(1) }
+    25% {transform:translate(0px, 7px) scale(1.4) }
+    50% {transform:translate(0px, 0px) scale(1) }
+    75% {transform:translate(0px, -7px) scale(1.4 )}
+    100% {transform:translate(0px, 0px) scale(1)}
   }
 
   @keyframes loading-rotate {
