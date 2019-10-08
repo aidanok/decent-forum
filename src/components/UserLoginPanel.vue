@@ -3,11 +3,11 @@
     <div v-if="!wallet" class="user-login-panel not-logged-in" @click="openFileDialog">
       <input type="file" id="loginFileUpload" @change="onFilesSelected" />
       <label for="loginFileUpload">Sign in !</label>
-      <i class="ri-login-box-line ri-2x"></i>
+      <login-box-svg></login-box-svg>
     </div>
     <div v-else class="user-login-panel" @click="onProfileClick">
       <wallet-address :address=walletAddress></wallet-address>
-      <i class="ri-user-3-line ri-2x"></i>
+      <user-profile-svg></user-profile-svg>
     </div>
   </div>
 </template>

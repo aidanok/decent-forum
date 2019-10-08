@@ -140,9 +140,12 @@
   box-shadow: 0 0px 5px 0px rgba(0, 0, 0, 0.24);
   background: rgba(228, 230, 242, 0.87);
 }
-.post-new a i {
+.post-new a svg {
   margin-left: 0.4em;
-  font-size: 1.25em;
+  font-size: 1em;
+  fill: #666;
+  width: 24px;
+  height: 24px;
 }
 
 

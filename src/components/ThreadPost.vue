@@ -1,5 +1,4 @@
 <template>
-  <!-- These css vars DONT get inherited.. boo ! -->
   <div 
     :style="{ '--post-level': level}" 
     v-bind:class="{'thread-post-is-root': level === 0 }" 
@@ -17,8 +16,8 @@
     }">
     
     
-    <i v-if="!isEditing && isUsersPost" 
-      class="thread-post-edit-icon ri-edit-box-line" 
+    <edit-box-svg v-if="!isEditing && isUsersPost" 
+      class="thread-post-edit-icon" 
       role="button" @click="isEditing = !isEditing" 
       v-tooltip="{ 
           trigger: 'hover', 
@@ -29,9 +28,9 @@
           placement: 'top',
         }"
       >
-    </i>
+    </edit-box-svg>
     
-    <i v-if="!isEditing" class="thread-post-pending-icon ri-exchange-funds-line"
+    <exchange-svg v-if="!isEditing" class="thread-post-pending-icon"
       v-tooltip="{ 
           trigger: 'hover', 
           autoHide: true,
@@ -40,7 +39,7 @@
           content: '<small>Waiting to be mined</br> Will not be seen by other users yet</small>', 
           placement: 'top',
         }">
-    </i>
+    </exchange-svg>
 
     <!-- <div class="thread-post-edit-count"> 
       {{ editCount }} revisions <i class="ri-arrow-down-s-fill"></i>
@@ -57,13 +56,14 @@
     </div>
 
     <div class="thread-post-time">
+
       <span v-if="editCount === 0">{{ currentNode.post.date | moment('from') }}</span>
 
       <v-popover v-if="editCount > 0" placement="bottom" popoverInnerClass="thread-post-edits-dropdown-popover">
         
         <div class="thread-post-time-with-edits">
           <span>{{ currentNode.post.date | moment('from') }}</span>
-          <i class="ri-arrow-down-s-fill"></i> 
+          <edit-line-svg></edit-line-svg>
         </div>
 
         <div slot="popover">
@@ -99,9 +99,10 @@
       <!-- TODO Make these top level grid items to allow for full customization -->
     <div v-if="!isEditing" v-bind:class="{ 'is-votes-disabled': isVotesDisabled }" class="thread-post-vote">
       
-      <i 
+      <thumb-up-svg
         @click=upVote 
-        role="button" 
+        role="button"
+        class="vote-up-svg" 
         v-tooltip="{ 
           trigger: 'hover', 
           autoHide: true, 
@@ -110,10 +111,12 @@
           content: upVoteTooltip, 
           placement: 'top',
         }"
-        class="ri-thumb-up-line button-icon">
-      </i>
-      <i
+        >
+      </thumb-up-svg>
+
+      <thumb-down-svg
         @click=downVote
+        class="vote-down-svg"
         v-tooltip="{ 
           trigger: 'hover', 
           autoHide: true, 
@@ -121,29 +124,28 @@
           delay: { show: isVotesDisabled ? 800 : 400, hide: 100 }, 
           content: downVoteToolTip, 
           placement: 'top',
-        }"
-       
-        role="button"  
-        class="ri-thumb-down-line button-icon">
-      </i>
+        }" 
+        role="button">
+      </thumb-down-svg>
     </div>
 
 
     <a role="button" 
         v-if="!isReplying && !isEditing"
-        @click="isReplying = !isReplying" 
+        @click="isReplying = !isReplying"
         class="thread-post-reply-button"
       >
-        Reply <i class="ri-reply-line"></i>
+        Reply <send-plane-svg></send-plane-svg>
+
     </a>
 
     <div v-if="isEditing"  class="edit-post-button-bar">
       <a role="button" @click="cancelEdit" class="thread-post-cancel-edit">
-        Cancel<i class="ri-close-circle-line"></i>
+        Cancel<close-circle-svg></close-circle-svg>
       </a>
 
       <a vrole="button" @click="saveEdit" class="thread-post-save-edit">
-        Save Edit<i class="ri-magic-line"></i>
+        Save Edit<magic-svg></magic-svg>
       </a>
     </div>
     

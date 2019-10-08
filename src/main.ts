@@ -12,11 +12,20 @@ Vue.use(VTooltip);
 Vue.use(require('vue-moment'));
 
 // Load every component from _common
-const req = require.context('./components/', false, /\.(js|vue)$/i)
+const req = require.context('./components/', true, /\.(js|svg|vue)$/i)
 for (const key of req.keys()) {
   const name = key.match(/\w+/)![0]
+  console.log(`name: ${name}`);
   Vue.component(name, req(key).default)
 }
+
+const svgRequire = require.context('./svg/', true, /\.svg$/i)
+for (const key of svgRequire.keys()) {
+  const name = key.match(/\w+/)![0]
+  console.log(`name: ${name}`);
+  Vue.component(`${name}${name.endsWith('Svg') ? '' : 'Svg'}`, svgRequire(key).default)
+}
+
 
 Vue.config.productionTip = false;
 

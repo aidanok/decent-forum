@@ -36,7 +36,7 @@
     </div>
     <div class="empty-forum" v-if="noPosts">
       <p>
-        There are no posts here yet ! <i class="ri-fire-line"></i> 
+        There are no posts here yet ! <fire-svg></fire-svg>
       </p>
       <p>
         You can post the first thread and create the forum

@@ -4,7 +4,7 @@
     
     <a v-if="!validationErrors" role="button" @click=post>
       Post Reply
-      <i class="ri-send-plane-2-line"></i>
+      <send-plane-svg></send-plane-svg>
     </a>
 
     <a
@@ -20,7 +20,7 @@
         }"
       >
       Post Reply
-      <i class="ri-send-plane-2-line"></i>
+      <send-plane-svg></send-plane-svg>
     </a>
     
 

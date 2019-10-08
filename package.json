@@ -19,11 +19,13 @@
     "readability": "0.1.0",
     "register-service-worker": "^1.6.2",
     "remixicon": "2.0.0",
+    "stringz": "2.0.0",
     "v-tooltip": "2.0.2",
     "vue": "^2.6.10",
     "vue-burger-menu": "2.0.2",
     "vue-moment": "4.0.0",
-    "vue-router": "3.1.3"
+    "vue-router": "3.1.3",
+    "vue-svg-loader": "0.12.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.11.0",

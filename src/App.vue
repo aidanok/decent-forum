@@ -14,11 +14,11 @@
         <logo class="app-logo"></logo>
         <router-link to="/">
           Home
-          <i class="ri-discuss-line ri-2x"></i>
+          <discuss-svg></discuss-svg>
           </router-link>
         <router-link to="/create-forum">
           Create Forum
-          <i class="ri-chat-new-line ri-2x"></i>
+          <chat-new-svg></chat-new-svg>
         </router-link>  
         <user-login-panel @logged-in=onUserLogin @profile-clicked=onProfileClick></user-login-panel>
       
@@ -40,9 +40,10 @@ import { ForumCache } from 'decent-forum-api';
 import { PendingTxTracker } from 'decent-forum-api';
 import { BlockWatcher } from 'decent-forum-api/block-watcher/block-watcher';
 
+
 export default Vue.extend({
 
-  components: { Slide },
+  components: { Slide,  },
 
   data: () => {
     

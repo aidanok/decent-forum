@@ -11,8 +11,8 @@
         :key="index">
         {{segment}}</router-link>
     
-    <span v-if="extraSegment || index !== path.length - 1" class="forum-path-header-seperator">
-    </span>
+      <span v-if="extraSegment || index !== path.length - 1" class="forum-path-header-seperator">
+      </span>
     </span>
 
     <span v-if="extraSegment">

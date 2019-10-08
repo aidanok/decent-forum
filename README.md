@@ -29,8 +29,7 @@ customizable themes and layouts, and they are supported in 92% of browsers now, 
 Some features that are supported in decent-forum-api are not surfaced fully in the UI yet: 
  - Nested forums, any amount of levels deep, ex:  Foo > Bar > Whiz > MyForum
 
- You can actually use them, by navigating to /forum/Foo_Bar_Whiz_MyForum, where you can post and the forum will be created, but they wont show up in the all-forums list at the moment 
-
+ You can actually use them, by navigating to /forum/Foo_Bar_Whiz_MyForum, where you can post and the forum will be created, but they wont show up in the all-forums list at the moment.
 
 ## Project setup
 ```
