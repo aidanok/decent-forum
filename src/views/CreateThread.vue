@@ -8,8 +8,10 @@
 </template>
 
 <script lang="ts">
+
 import Vue from 'vue'
 import { SharedState } from '@/ui-lib';
+
 export default Vue.extend({
   props: {
     shared: {
@@ -24,7 +26,7 @@ export default Vue.extend({
 
   methods: {
     threadPosted: function(txId: string) {
-      this.$router.push(`/thread/${txId}`);
+      this.$router.push({ name: 'thread', params: { txId } });
     }
   }
 })

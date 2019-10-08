@@ -53,7 +53,7 @@ export default Vue.extend({
       // VUE BREAKS WITH % in the URL  if its past the # :/ 
       // so replace them with unicode 'FULLWIDTH PERCENT as a workaround 
       // Copy so the UI doesnt update
-      const p = this.forumName; 
+      const p = this.forumName.trim(); 
       return p.replace('%', '\uFF05');
     }
   }
