@@ -21,7 +21,9 @@
 ┈╲▂▂▂▂▂▂▂▂▂▂▂╯┈┈
 ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
 </div>
-
+<div class="art-credit">
+  @tw1tt3rart
+</div>
 <!--
 <div class="dot-container" v-crazy>
 
@@ -54,12 +56,18 @@
     white-space: pre;
   }
 
+  .art-credit {
+    font-size: 0.5em;
+    color: rgb(204, 204, 204);
+    padding-left: 8em;
+
+  }
+
   .dot-container {
     display: inline-block;
-    padding: 1em;
     font-family: "monospace";
     white-space: pre;
-    margin-top: 1em;
+    margin-top: 5em;
     margin-left: auto;
     margin-right: auto;
     font-size: 1em;
@@ -68,7 +76,7 @@
   }
   
   .dot-container .charspan {    
-    color: rgb(235, 229, 229);
+    color: rgb(211, 207, 207);
     animation:
       loading-wave
       var(--anim-duration) 
@@ -79,6 +87,7 @@
   }
 
   .getting-you-there {
+    margin-top: 4em;
     font-size: 0.25em;
     color:rgb(117, 117, 117);
     font-weight: bold;
