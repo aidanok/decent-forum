@@ -11,10 +11,8 @@
 ╯┃┈┈┈┈┈┈┈┈┈╰┳━╯┈
 ┈┃┈┏━┳━━┓┈┏┈┃┈┈┈
 ▔┗━┻━┛▔▔┗━┻━┛▔▔▔
-  </div>
+</div>
 -->
-
-
 
 <div class="dot-container" v-crazy > 
 ┈╱▔▔▔▔▔▔▔╲┏━╮╭━┓
@@ -24,6 +22,19 @@
 ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
 </div>
 
+<!--
+<div class="dot-container" v-crazy>
+
+╭╭━━━╮╮┈┈┈┈┈┈┈┈┈┈
+┈┃╭━━╯┈┈┈┈▕╲▂▂╱▏┈
+┈┃┃╱▔▔▔▔▔▔▔▏╱▋▋╮┈
+┈┃╰▏┃╱╭╮┃╱╱▏╱╱▆┃┈
+┈╰━▏┗━╰╯┗━╱╱╱╰┻┫┈
+┈┈┈▏┏┳━━━━▏┏┳━━╯┈
+┈┈┈▏┃┃┈┈┈┈▏┃┃┈┈┈┈
+
+</div>
+-->
 
 <div class="ascii-art-container getting-you-there" v-crazy>
  _______         __   __   __                                          __   __                              
@@ -54,18 +65,12 @@
     font-size: 1em;
     font-weight: bold;
     --anim-duration: 0.62s;
-    /*animation: loading-spin;
-    animation-duration: 6s;
-    animation-iteration-count: infinite;
-    animation-timing-function: linear;*/
-    
   }
   
-  .dot-container .charspan {
-    
-    color: rgb(223, 223, 223);
-    animation: 
-      loading-wave 
+  .dot-container .charspan {    
+    color: rgb(235, 229, 229);
+    animation:
+      loading-wave
       var(--anim-duration) 
       cubic-bezier(0.075, 0.82, 0.165, 1)
       infinite
@@ -73,13 +78,11 @@
       ; 
   }
 
-
   .getting-you-there {
     font-size: 0.25em;
     color:rgb(117, 117, 117);
     font-weight: bold;
   }
-
 
   @keyframes speedlines {
     0% { transform: translate(0px, 0px) }

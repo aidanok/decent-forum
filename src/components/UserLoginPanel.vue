@@ -2,7 +2,7 @@
   <div>
     <div v-if="!wallet" class="user-login-panel not-logged-in" @click="openFileDialog">
       <input type="file" id="loginFileUpload" @change="onFilesSelected" />
-      <label for="loginFileUpload">Sign in !</label>
+      <label for="loginFileUpload">Sign in</label>
       <login-box-svg></login-box-svg>
     </div>
     <div v-else class="user-login-panel" @click="onProfileClick">
@@ -20,7 +20,7 @@
 <script lang="ts">
 
 import Vue from 'vue'
-import { arweave } from 'decent-forum-api'
+import { arweave, PostTreeNode } from 'decent-forum-api'
 
 export default Vue.extend({
   
@@ -66,8 +66,7 @@ export default Vue.extend({
 
     onProfileClick(event: any) {
       this.$emit('profile-clicked', event);
-    }
-
+    },
   },
 
   
