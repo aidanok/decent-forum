@@ -12,10 +12,9 @@ With Vscode you can add both folders to a workspace.
 
 Current version deployed at 
 
-https://cngxnisvm6k5.arweave.net/w7VCiN_GWQsEx7BllKmDkGMDxpoUwTferBKRC20tjyM#/
+https://yi7w65ir7ozv.arweave.net/Lh0LIcmCcg5yvKmoPFO_vBAuBjdCeOwnV_x5Al-4FLo#/
 
-
-NOTE: The UI is quite rough and inconsistently styled at the moment. No component library was used just html / css and the icon font from: https://remixicon.com. 
+NOTE: The UI is quite rough and inconsistently styled at the moment. No component library was used just html / css / some svgs
 
 The idea is that the forum is user themeable, so all CSS is done with global, non-mangled class names and most layout is done with CSS grid.  
 
