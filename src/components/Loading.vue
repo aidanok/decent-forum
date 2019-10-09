@@ -1,6 +1,8 @@
 <template>
 <div> 
-<div class="dot-container" v-crazy>            
+ 
+<!--
+<div class="dot-container" v-crazy  >            
 
 ┈╭━━━━━━━┳━━╮┈┈┈
 ┈┃┈┈┈┈╭╯┈┃┈▋┃╭━┓
@@ -9,8 +11,19 @@
 ╯┃┈┈┈┈┈┈┈┈┈╰┳━╯┈
 ┈┃┈┏━┳━━┓┈┏┈┃┈┈┈
 ▔┗━┻━┛▔▔┗━┻━┛▔▔▔
-
   </div>
+-->
+
+
+
+<div class="dot-container" v-crazy > 
+┈╱▔▔▔▔▔▔▔╲┏━╮╭━┓
+▕┈╭╮┈┈┈┈┈▕╰━╮╭━╯
+▕━━━╯┈┈┈┈┈╲━╯┃┈┈
+┈╲▂▂▂▂▂▂▂▂▂▂▂╯┈┈
+┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
+</div>
+
 
 <div class="ascii-art-container getting-you-there" v-crazy>
  _______         __   __   __                                          __   __                              
@@ -40,7 +53,7 @@
     margin-right: auto;
     font-size: 1em;
     font-weight: bold;
-    --anim-duration: 0.7s;
+    --anim-duration: 0.62s;
     /*animation: loading-spin;
     animation-duration: 6s;
     animation-iteration-count: infinite;
@@ -89,9 +102,9 @@
 
   @keyframes loading-wave {
     0% {transform:translate(0px, 0px) scale(1) }
-    25% {transform:translate(0px, 7px) scale(1.4) }
+    25% {transform:translate(0px, calc(var(--is-speed-line) * 7px)) scale(1.4) }
     50% {transform:translate(0px, 0px) scale(1) }
-    75% {transform:translate(0px, -7px) scale(1.4 )}
+    75% {transform:translate(0px, calc(var(--is-speed-line) * -7px)) scale(1.4 )}
     100% {transform:translate(0px, 0px) scale(1)}
   }
 
@@ -123,7 +136,7 @@ export default Vue.extend({
   directives: {
     crazy: crazyAsciiDirective(((x, y, char) => {
       return [
-        ['--is-speed-line', char === '┈' ? '1' : '0'],
+        ['--is-speed-line', char === '┈' ? '0' : '1'],
         //['color', char === '┈' ? 'red' : 'unset' ],
       ]
       

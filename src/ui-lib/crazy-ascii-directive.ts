@@ -45,7 +45,7 @@ export function crazyAsciiDirective(cb?: SetCharactherStyle) {
 
       let firstContentLine = 0;
       let lastContentLine = lines.length - 1;
-
+      
       
       const blankLineRegex = /^\s*$/; 
 
@@ -64,7 +64,7 @@ export function crazyAsciiDirective(cb?: SetCharactherStyle) {
           const trimmed = lines[i].trim();
           const lc = trimmed[trimmed.length-1];
           const fc = trimmed[0];
-
+          
           maxChar = Math.max(maxChar, lines[i].lastIndexOf(lc));
           minChar = Math.min(minChar, lines[i].indexOf(fc));
         }
@@ -76,18 +76,17 @@ export function crazyAsciiDirective(cb?: SetCharactherStyle) {
         slice(firstContentLine, lastContentLine+1)
         .map(l =>  stringz.toArray(l));
 
-    
      
       // Done normalizing, now create the <span> and <br> elements, 
       // and replace the content in el with the resulting document fragment.
       
       const frag = document.createDocumentFragment();
       const ySize = lines.length - 1;
-      const xSize = maxChar; // dont include <BR> 
+      const xSize = maxChar;  // maChar is NOT the line length, its the max index. (length - 1)
 
       for (let y = 0; y < trueLines.length; y++) {
         
-        for (let x = minChar; x < maxChar; x++) {
+        for (let x = minChar; x <= maxChar; x++) {
           
           const span = document.createElement("SPAN");
           
