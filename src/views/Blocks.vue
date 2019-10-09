@@ -16,6 +16,7 @@
         Block: {{ b.hash.substr(0, 6 )}} 
         - [ {{ b.block.txs.length }} Txs ] 
         - {{ new Date(b.block.timestamp * 1000) | moment('from') }} 
+        - Prev {{ b.block.previous_block.substr(0, 6) }}
       </div>
       <div class="block-watcher-tx" v-for="(tags, tx) in b.tags" :key=tx>
         
