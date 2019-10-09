@@ -67,17 +67,25 @@ export default Vue.extend({
       }
 
       if (Notification.permission === 'granted') {
-        this.checkForReplies();
+        this.loopRepliesCheck();
       }
+
     },
 
     onProfileClick(): void {
       
     },
 
-    checkForReplies(): void {
+    testNotifications() {
+      new Notification('A', { body: '<span style="color: red;">Title</span>' });
+    },
+
+    loopRepliesCheck(): void {
       const myThreads: Record<string, number> = {};
-      //// SO UGLY ! TODO: cleanup, move to other service or something.
+      // TODO: cleanup, move to other service or something.
+      // This just , fires a timer every 10 seconds, gets all the current users
+      // posts and records how many replies they have. If the replies increase, send 
+      // a notification. 
       setInterval(() => {
         if (this.shared.user.loggedIn) {
           
@@ -92,9 +100,11 @@ export default Vue.extend({
               if (replies > myThreads[posts[i].id]) {
                 // new replies! 
                 myThreads[posts[i].id] = replies; 
-                const notification = new Notification('New replies to your post!')
+                
+                const post = posts[i];
+                const title = post.getRootPost().post.tags.description;  
+                const notification = new Notification('New replies to your post!', { body: `In thread: ${title}`});
                 notification.onclick = (ev) => {
-                  const post = posts[i];
                   window.focus();
                   const rootPostId = post.getRootPost().id;
                   this.$router.push({ name: 'thread', params: { txId: rootPostId } })
@@ -105,7 +115,7 @@ export default Vue.extend({
           
         }
 
-      }, 5000);
+      }, 10000);
     },
   }
 
