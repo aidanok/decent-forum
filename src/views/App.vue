@@ -112,7 +112,7 @@ export default Vue.extend({
               }
             }
           }
-          
+          console.log('Checked for replies');
         }
 
       }, 10000);
