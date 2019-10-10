@@ -47,12 +47,13 @@
     
     <div class="thread-post-title" v-if="currentNode.isRootPost()" >
       <input 
+        v-if="isEditing"
         type="text" 
         class="thread-post-title-input" 
         v-model="description"
         :disabled="!isEditing"
       >
-      <!-- <h3 v-else> {{ currentNode.post.tags.description }} </h3> -->
+      <h3 v-else> {{ currentNode.post.tags.description }} </h3>
     </div>
 
     <div class="thread-post-time">
