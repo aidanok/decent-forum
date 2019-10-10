@@ -131,7 +131,7 @@
 
 
     <a role="button" 
-        v-if="!isReplying && !isEditing"
+        v-if="!isEditing"
         @click="isReplying = !isReplying"
         class="thread-post-reply-button"
       >
@@ -244,16 +244,12 @@ export default Vue.extend({
       this.isSavingEdit = false; 
       this.isEditing = false; 
       
-      console.log('NODE EDIT COUNT:' + this.postNode.editCount())
-      // let vue update
+      
       await Vue.nextTick();
-       console.log('1 NODE EDIT COUNT:' + this.postNode.editCount())
       this.currentEdit = this.postNode.editCount() - 1;
       // and again 
       await Vue.nextTick();
-      console.log('2 NODE EDIT COUNT:' + this.postNode.editCount())
       await Vue.nextTick();
-      console.log('3 NODE EDIT COUNT:' + this.postNode.editCount())
       this.copyNodeToModel();
       
     },

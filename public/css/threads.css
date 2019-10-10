@@ -436,9 +436,10 @@ POST
   border-radius: 0.4em;
   width: 90%;
   outline: none;
+  resize: none;
   padding: 0.5em;
   padding-top: 1em;
-  min-height: 8em;
+  min-height: 14em;
 }
 
 .post-reply a {

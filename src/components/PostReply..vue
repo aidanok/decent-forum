@@ -88,9 +88,10 @@ export default Vue.extend({
       let el = this.$refs.ourBox as Element;
       let target = e.target;
       if ( el !== target && this.shared.user.loggedIn && !el.contains(target)) {
-        if (this.showing) {
+        // Too annoying while we still lose state 
+        /*if (this.showing) {
           this.$emit('blur', {});
-        }
+        }*/
       }
     }
   },  
