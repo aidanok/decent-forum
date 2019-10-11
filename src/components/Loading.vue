@@ -1,6 +1,6 @@
 <template>
 <div> 
- 
+ <!--
 <div class="dot-container" v-crazy  >            
 
 ┈╭━━━━━━━┳━━╮┈┈┈
@@ -11,7 +11,7 @@
 ┈┃┈┏━┳━━┓┈┏┈┃┈┈┈
  ┗━┻━┛  ┗━┻━┛
 </div>
-
+-->
 
 <!--<div class="dot-container" v-crazy > 
 ┈╱▔▔▔▔▔▔▔╲┏━╮╭━┓
@@ -20,9 +20,11 @@
 ┈╲▂▂▂▂▂▂▂▂▂▂▂╯┈┈
 ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
 </div>-->
+<!--
 <div class="art-credit">
   @tw1tt3rart
 </div>
+-->
 <!--
 <div class="dot-container" v-crazy>
 
@@ -87,9 +89,21 @@
 
   .getting-you-there {
     margin-top: 4em;
-    font-size: 0.25em;
+    font-size: 0.3em;
     color:rgb(117, 117, 117);
     font-weight: bold;
+    --anim-duration: 1.62s;
+  }
+  .getting-you-there .charspan {
+
+    animation:
+      loading-colors
+      var(--anim-duration) 
+      cubic-bezier(0.075, 0.82, 0.165, 1)
+      infinite
+      calc(var(--anim-duration) * var(--pos-pct-x) )
+      reverse;
+      ; 
   }
 
   @keyframes speedlines {
@@ -98,9 +112,9 @@
   }
 
   @keyframes loading-colors {
-    0%      { color: rgba(112, 240, 80, 0.2) }
-    50%     { color: rgba(79, 182, 165, 0.71) } 
-    100%    { color: rgb(162, 161, 216, 0.4) }
+    0%      { color: rgb(136, 149, 132);}
+    50%     { color: rgb(109, 136, 101);} 
+    100%    { color: rgb(136, 149, 132);}
   }
 
   @keyframes loading-jitter {
