@@ -121,7 +121,7 @@ export default Vue.extend({
           
         }
 
-      }, 5000);
+      }, 15000);
     },
   }
 
