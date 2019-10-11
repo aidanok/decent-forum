@@ -99,23 +99,29 @@ export default Vue.extend({
               const replies = posts[i].countReplies();
               if (replies > myThreads[posts[i].id]) {
                 // new replies! 
+              
                 myThreads[posts[i].id] = replies; 
-                
-                const post = posts[i];
-                const title = post.getRootPost().post.tags.description;  
-                const notification = new Notification('New replies to your post!', { body: `In thread: ${title}`});
-                notification.onclick = (ev) => {
-                  window.focus();
-                  const rootPostId = post.getRootPost().id;
-                  this.$router.push({ name: 'thread', params: { txId: rootPostId } })
+                  // maybe... this is all so hacky!
+                const newestDate = posts[i].getLatestReplyDate();
+                if ( newestDate > (Date.now() - (1000 * 60 * 60))) {
+                  const post = posts[i];
+                  const title = post.getRootPost().post.tags.description;  
+                  const notification = new Notification('New replies to your post!', { body: `In thread: ${title}`});
+                  notification.onclick = (ev) => {
+                    window.focus();
+                    const rootPostId = post.getRootPost().id;
+                    this.$router.push({ name: 'thread', params: { txId: rootPostId } })
+                  }
+                } else {
+                  console.log(`Ignoring new reply older than an hour`);
                 }
               }
             }
           }
-          console.log('Checked for replies');
+          
         }
 
-      }, 10000);
+      }, 5000);
     },
   }
 
