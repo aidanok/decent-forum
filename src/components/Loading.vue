@@ -1,7 +1,6 @@
 <template>
 <div> 
  
-<!--
 <div class="dot-container" v-crazy  >            
 
 ┈╭━━━━━━━┳━━╮┈┈┈
@@ -10,17 +9,17 @@
 ┃┃┈┈┈┈╰━━╯┈┃╰╯┃┈
 ╯┃┈┈┈┈┈┈┈┈┈╰┳━╯┈
 ┈┃┈┏━┳━━┓┈┏┈┃┈┈┈
-▔┗━┻━┛▔▔┗━┻━┛▔▔▔
+ ┗━┻━┛  ┗━┻━┛
 </div>
--->
 
-<div class="dot-container" v-crazy > 
+
+<!--<div class="dot-container" v-crazy > 
 ┈╱▔▔▔▔▔▔▔╲┏━╮╭━┓
 ▕┈╭╮┈┈┈┈┈▕╰━╮╭━╯
 ▕━━━╯┈┈┈┈┈╲━╯┃┈┈
 ┈╲▂▂▂▂▂▂▂▂▂▂▂╯┈┈
 ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
-</div>
+</div>-->
 <div class="art-credit">
   @tw1tt3rart
 </div>
