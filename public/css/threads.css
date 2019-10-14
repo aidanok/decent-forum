@@ -5,7 +5,7 @@
 
 /** POST conntainer */
 .thread-post-container {
-  margin-left: calc(var(--post-level) * 3em);
+  margin-left: calc(var(--post-level) * 2em);
   margin-right: 2.3em;
   font-size: 0.9em;
 }

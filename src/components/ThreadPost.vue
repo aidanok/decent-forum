@@ -1,12 +1,10 @@
 <template>
   <div 
-    :style="{ '--post-level': level}" 
+    :style="{ '--post-level': Math.min(level, 4), }" 
     v-bind:class="{'thread-post-is-root': level === 0 }" 
     class="thread-post-container">
   <div v-if="!bad || showBadPost">
-  <div class="thread-post-edit"> 
 
-  </div>
   <div class="thread-post" 
     v-bind:class="{ 
         'is-users-post': isUsersPost,
@@ -14,7 +12,6 @@
         'is-pending-tx': isPendingTx,
         'is-editing': isEditing
     }">
-    
     
     <edit-box-svg v-if="!isEditing && isUsersPost" 
       class="thread-post-edit-icon" 
@@ -41,9 +38,6 @@
         }">
     </exchange-svg>
 
-    <!-- <div class="thread-post-edit-count"> 
-      {{ editCount }} revisions <i class="ri-arrow-down-s-fill"></i>
-    </div> -->
     
     <div class="thread-post-title" v-if="currentNode.isRootPost()" >
       <input 
@@ -339,7 +333,6 @@ export default Vue.extend({
     isPendingTx: function(): boolean {
       return this.currentNode.isPendingTx
     },
-    
     currentNode(): PostTreeNode {
       return this.postNode.getEdit(this.currentEdit);
     }, 
