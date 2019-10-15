@@ -98,13 +98,13 @@ export default Vue.extend({
   },
 
   methods: {
-    async loadForum() {
+    async loadForum(): Promise<void> {
       this.forumNode = null;
       this.error = null;
       this.noPosts = false;
 
       console.info(`Loading forum: ${this.path.join(' > ')}`);
-      await queryForum(this.path, this.shared.cache);
+      await queryForum(this.path, this.shared.cache, 4, 9);
 
       this.forumNode = this.shared.cache.findForumNode(this.path);
 
@@ -122,7 +122,7 @@ export default Vue.extend({
         console.log(pn.post.tags);
       })
     },
-    onFirstPosted(txId: string) {
+    onFirstPosted(txId: string): Promise<void> {
       this.loadForum();
     }
   },
