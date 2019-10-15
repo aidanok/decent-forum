@@ -87,9 +87,11 @@
       ; 
   }
 
+  
+
   .getting-you-there {
     margin-top: 4em;
-    font-size: 0.3em;
+    font-size: 0.53em;
     color:rgb(117, 117, 117);
     font-weight: bold;
     --anim-duration: 1.62s;
@@ -106,15 +108,19 @@
       ; 
   }
 
+  .getting-you-there .is-top {
+    /*color: red;?*/
+  }
+
   @keyframes speedlines {
     0% { transform: translate(0px, 0px) }
     100% { transform: translate(calc(-100px * var(--is-speed-line)), 0px) }
   }
 
   @keyframes loading-colors {
-    0%      { color: rgb(136, 149, 132);}
-    50%     { color: rgb(109, 136, 101);} 
-    100%    { color: rgb(136, 149, 132);}
+    0%      { color: rgb(136, 149, 132); transform: scale(1)}
+    50%     { color: rgb(155, 199, 157)} 
+    100%    { color: rgb(136, 149, 132)}
   }
 
   @keyframes loading-jitter {
@@ -166,11 +172,19 @@ export default Vue.extend({
       ]
       
     })),
-    crazy2: crazyAsciiDirective((x, y, char) => {
+    /*crazyg: crazyAsciiDirective((x, y, char, lines, maxX, maxY) => {
+      let isTop = true
+      for (let yy = y-1; yy > 0; --yy) {
+        if (lines[yy][x] && lines[yy][x] !== ' ') {
+          isTop = false;
+          break;
+        }
+      }
       return [
-        ['--is-dot', char === '.' ? '1' : '0']
+        ['--is-dot', char === '.' ? '1' : '0'],
+        isTop ? 'is-top' : undefined,
       ];
-    })
+    })*/
   }
 
 })
