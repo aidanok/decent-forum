@@ -1,6 +1,6 @@
 <template>
   <div class="app-logo-container">
-    <div class="ascii-logo" v-bind:class="{ 'ascii-logo-foo2': foo, 'ascii-logo-foo3': foo }" v-crazy>
+    <div class="ascii-logo" v-bind:class="{ 'ascii-logo-foo2': isAnimating, 'ascii-logo-foo3': isAnimating }" v-crazy>
 ______                    _                     ______                             
 |  _  \                  | |                    |  ___|                            
 | | | |___  ___ ___ _ __ | |_ ______ __ _ ______| |_ ___  _ __ _   _ _ __ ___  ___ 
@@ -111,23 +111,38 @@ export default Vue.extend({
   },
 
   data: () => ({
-    foo: false
+    isAnimating: false
   }),
 
   created() {
 
+    (window as any).__hacky_loading_notify = () => {
+      this.doLogoAnim();
+    }
 
-    const doLogoAnim = async () => {
+    /*const doLogoAnim = async () => {
       await new Promise(res => setTimeout(res, 9000)); 
+      this.doLogoAnim();
       while (true) {
-        this.foo = true; 
+        this.isAnimating = true; 
         await new Promise(res => setTimeout(res, 8000));
-        this.foo = false;
+        this.isAnimating = false;
         await new Promise(res => setTimeout(res, 120*1000));
       }
     }
 
-    doLogoAnim();
+    doLogoAnim();*/
+  },
+
+  methods: {
+    async doLogoAnim() {
+      if (this.isAnimating) {
+        return; // already animating
+      }
+      this.isAnimating = true; 
+      await new Promise(res => setTimeout(res, 4000));
+      this.isAnimating = false;
+    }
   },
 
   

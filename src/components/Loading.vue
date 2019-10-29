@@ -164,6 +164,15 @@ import { crazyAsciiDirective } from '@/ui-lib/crazy-ascii-directive';
 
 export default Vue.extend({
 
+  beforeDestroy() {
+    
+    const f = (window as any).__hacky_loading_notify;
+    if (typeof f === 'function') { 
+      console.info(`LOADING FIN`);
+      f();
+    }
+  },
+
   directives: {
     crazy: crazyAsciiDirective(((x, y, char) => {
       return [
@@ -172,19 +181,6 @@ export default Vue.extend({
       ]
       
     })),
-    /*crazyg: crazyAsciiDirective((x, y, char, lines, maxX, maxY) => {
-      let isTop = true
-      for (let yy = y-1; yy > 0; --yy) {
-        if (lines[yy][x] && lines[yy][x] !== ' ') {
-          isTop = false;
-          break;
-        }
-      }
-      return [
-        ['--is-dot', char === '.' ? '1' : '0'],
-        isTop ? 'is-top' : undefined,
-      ];
-    })*/
   }
 
 })
