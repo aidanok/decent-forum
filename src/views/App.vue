@@ -59,7 +59,7 @@ export default Vue.extend({
     onUserLogin(user: any): void {
       this.shared.user = Object.assign({}, user, { loggedIn: true });
       
-      if (Notification.permission !== 'granted') { 
+      /*if (Notification.permission !== 'granted') { 
         Notification.requestPermission()
         .then(function(result) {
           // TODO: count denies and stop annoying by asking everytime. 
@@ -68,7 +68,7 @@ export default Vue.extend({
 
       if (Notification.permission === 'granted') {
         this.loopRepliesCheck();
-      }
+      }*/
 
     },
 
