@@ -56,6 +56,7 @@ import { SimpleForumContents, summarizeForum, simpleForumContents } from '@/ui-l
 import { scoreByVotesAndTime } from 'decent-forum-api/sorting';
 
 export default Vue.extend({
+
   props: {
     shared: {
       type: Object as () => SharedState,
@@ -104,12 +105,10 @@ export default Vue.extend({
       this.noPosts = false;
 
       console.info(`Loading forum: ${this.path.join(' > ')}`);
-      await queryForum(this.path, this.shared.cache, 4, 9);
+      await queryForum(this.path, this.shared.cache);
 
       this.forumNode = this.shared.cache.findForumNode(this.path);
 
-       
-      
       if (!this.forumNode) {
         this.noPosts = true;
         return; 
@@ -122,8 +121,9 @@ export default Vue.extend({
         console.log(pn.post.tags);
       })
     },
+    
     onFirstPosted(txId: string): Promise<void> {
-      this.loadForum();
+      return this.loadForum();
     }
   },
 

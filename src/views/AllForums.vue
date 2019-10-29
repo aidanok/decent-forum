@@ -73,7 +73,7 @@ export default Vue.extend({
       this.errored = false; 
       this.forums = null;
       try {
-        const data = await queryForum([], this.shared.cache, 5, 8);
+        const data = await queryForum([], this.shared.cache);
         this.forums = Object.values(this.shared.cache.forums.children)
         this.loading = false; 
         this.errored = false;
