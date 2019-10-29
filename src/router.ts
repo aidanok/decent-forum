@@ -7,7 +7,6 @@ import Thread from './views/Thread.vue';
 import Media from './views/Media.vue';
 import CreateForum from './views/CreateForum.vue';
 import Loading from './components/Loading.vue';
-import Blocks from './views/Blocks.vue';
 
 import { decodeForumPath } from 'decent-forum-api/lib/forum-paths';
 
@@ -70,11 +69,7 @@ export default new Router({
       name: 'name',
       component: Loading,
     },
-    {
-      path: '/blocks',
-      name: 'blocks',
-      component: Blocks
-    }
+    
 
   ],
 });
