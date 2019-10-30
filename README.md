@@ -10,9 +10,9 @@ on editing of either project.
 
 With Vscode you can add both folders to a workspace. 
 
-Current version deployed at 
+Current version deployed available at: 
 
-https://arweave.net/3SMZ1RW2xGTBdTiUznKrkTJTHtYtBs27wm0q2H58Jck
+https://aokisok.github.io/decent-forum/latest.html
 
 
 NOTE: The UI is quite rough and inconsistently styled at the moment. No component library was used just html / css / some svgs
