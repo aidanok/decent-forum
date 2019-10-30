@@ -12,7 +12,7 @@ With Vscode you can add both folders to a workspace.
 
 Current version deployed at 
 
-https://cobbthg5lsmu.arweave.net/6RbaVQ-pmfL9E9gmTuOV6ZcNB7mTbqBHnqPhn8waxzw
+https://arweave.net/3SMZ1RW2xGTBdTiUznKrkTJTHtYtBs27wm0q2H58Jck
 
 
 NOTE: The UI is quite rough and inconsistently styled at the moment. No component library was used just html / css / some svgs
