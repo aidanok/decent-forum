@@ -12,7 +12,7 @@ With Vscode you can add both folders to a workspace.
 
 Current version deployed available at: 
 
-https://aokisok.github.io/decent-forum/latest.html
+[https://aokisok.github.io/decent-forum/latest.html](https://aokisok.github.io/decent-forum/latest.html)
 
 
 NOTE: The UI is quite rough and inconsistently styled at the moment. No component library was used just html / css / some svgs
