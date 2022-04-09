@@ -15,7 +15,7 @@
     "clean-mark": "0.8.0",
     "core-js": "^2.6.5",
     "dompurify": "2.0.3",
-    "moment": "2.24.0",
+    "moment": "2.29.2",
     "readability": "0.1.0",
     "register-service-worker": "^1.6.2",
     "remixicon": "2.0.0",
